@@ -1,178 +1,120 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scientific Tools - Entomology</title>
+<title>Outils Scientifiques</title>
 <style>
+    /* --- Style global --- */
     body {
-        font-family: "Georgia", serif;
-        margin: 0;
-        background-color: #fdfdfd;
-        color: #222;
+        font-family: Arial, sans-serif;
         line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        color: #333;
     }
+
     header {
-        background-color: #1f2d3d;
-        color: white;
-        padding: 30px 20px;
+        background-color: #2c3e50;
+        color: #fff;
+        padding: 20px 0;
         text-align: center;
     }
+
     header h1 {
         margin: 0;
-        font-size: 2.5em;
+        font-size: 2em;
     }
-    header p {
-        font-size: 1.1em;
-        margin-top: 5px;
-    }
-    nav {
-        background-color: #2c3e50;
-        color: white;
-        padding: 10px 20px;
-        text-align: center;
-    }
-    nav a {
-        color: white;
-        text-decoration: none;
-        margin: 0 15px;
-        font-weight: bold;
-    }
-    nav a:hover {
-        text-decoration: underline;
-    }
-    .container {
+
+    main {
         max-width: 1000px;
-        margin: auto;
-        padding: 20px;
+        margin: 20px auto;
+        padding: 0 20px;
     }
-    .tool-card {
-        display: flex;
-        flex-wrap: wrap;
-        background: #ffffff;
-        margin-bottom: 30px;
+
+    .tool {
+        background-color: #fff;
+        padding: 20px;
+        margin: 20px 0;
         border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        overflow: hidden;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-    .tool-card img {
-        max-width: 300px;
-        width: 100%;
-        object-fit: cover;
-    }
-    .tool-content {
-        flex: 1;
-        padding: 20px;
-    }
-    .tool-content h2 {
+
+    .tool h2 {
         margin-top: 0;
-        color: #1f2d3d;
+        color: #2c3e50;
     }
+
+    .tool p {
+        margin-bottom: 10px;
+    }
+
     .download-btn {
         display: inline-block;
-        margin-top: 15px;
-        padding: 12px 20px;
-        background-color: #27ae60;
-        color: white;
-        border-radius: 6px;
+        background-color: #2c7be5;
+        color: #fff;
+        padding: 10px 20px;
         text-decoration: none;
-        font-weight: bold;
+        border-radius: 6px;
+        transition: background 0.3s;
     }
+
     .download-btn:hover {
-        background-color: #219150;
+        background-color: #1a5bb8;
     }
+
     .doi {
-        margin-top: 10px;
         font-size: 0.9em;
+        margin-top: 8px;
     }
+
     footer {
         text-align: center;
-        padding: 20px;
-        background-color: #1f2d3d;
-        color: #ddd;
-        font-size: 0.9em;
+        padding: 20px 0;
+        background-color: #2c3e50;
+        color: #fff;
+        margin-top: 40px;
     }
-    @media(max-width: 768px){
-        .tool-card {
-            flex-direction: column;
-        }
-        .tool-card img {
-            max-width: 100%;
+
+    /* --- Responsive --- */
+    @media (max-width: 600px) {
+        .tool {
+            padding: 15px;
         }
     }
 </style>
 </head>
-
 <body>
 
 <header>
-    <h1>Scientific Entomology Tools</h1>
-    <p>Interactive identification applications and resources for mosquito research</p>
+    <h1>Outils Scientifiques pour l’Entomologie</h1>
+    <p>Applications et scripts disponibles au téléchargement</p>
 </header>
 
-<nav>
-    <a href="#moustic">Moustic Réunion</a>
-    <a href="#r0sim">R0 Simulator</a>
-    <a href="#future">Future Tools</a>
-</nav>
+<main>
 
-<div class="container">
-
-    <!-- TOOL 1 -->
-    <div class="tool-card" id="moustic">
-        <img src="images/moustic.png" alt="Moustic Réunion screenshot">
-        <div class="tool-content">
-            <h2>Moustic Réunion</h2>
-            <p>
-            Mobile application for mosquito identification based on morphological traits.
-            Provides interactive keys, annotated images, and offline functionality.
-            Designed for research, surveillance, and educational purposes.
-            </p>
-            <p><strong>Authors:</strong> Frederic Lardeux (software), Thierry Boussès (scientific content)</p>
-            <a href="https://github.com/fredlardeux/entomo_keys/releases/download/untagged-aa4a75c82de5a713eee8/2025-05-16_moustic_Reunion.apk" class="download-btn">
-                Download APK
-            </a>
-            <p class="doi">
-                DOI: <a href="https://doi.org/XXXXXXX" target="_blank">10.5281/zenodo.XXXXXXX</a>
-            </p>
-        </div>
+    <!-- Exemple d'un outil -->
+    <div class="tool">
+        <h2>Moustic Réunion</h2>
+        <p>Application Android pour l’identification des moustiques via leurs ailes.</p>
+        <a class="download-btn" href="https://github.com/fredlardeux/entomo_keys/releases/download/v1.0/2025-05-16_moustic_Reunion.apk">Télécharger APK</a>
+        <p class="doi">DOI : <a href="https://doi.org/10.5281/zenodo.xxxxx" target="_blank">10.5281/zenodo.xxxxx</a></p>
     </div>
 
-    <!-- TOOL 2 -->
-    <div class="tool-card" id="r0sim">
-        <img src="images/r0sim.png" alt="R0 Simulator screenshot">
-        <div class="tool-content">
-            <h2>R0 Simulator</h2>
-            <p>
-            Stochastic simulator for vector-borne disease transmission parameters.
-            Allows calculation of R0 and sensitivity analysis using real entomological and climatic datasets.
-            </p>
-            <p><strong>Authors:</strong> Frederic Lardeux</p>
-            <a href="downloads/R0Simulator_v1.0.zip" class="download-btn">
-                Download ZIP
-            </a>
-            <p class="doi">
-                DOI: <a href="https://doi.org/YYYYYYY" target="_blank">10.5281/zenodo.YYYYYYY</a>
-            </p>
-        </div>
+    <!-- Deuxième outil -->
+    <div class="tool">
+        <h2>R0 Simulator</h2>
+        <p>Application R Shiny pour la simulation de modèles épidémiologiques compartimentaux.</p>
+        <a class="download-btn" href="https://zenodo.org/record/XXXXXX/files/r0simulator.zip">Télécharger ZIP</a>
+        <p class="doi">DOI : <a href="https://doi.org/10.5281/zenodo.xxxxx" target="_blank">10.5281/zenodo.xxxxx</a></p>
     </div>
 
-    <!-- FUTURE TOOLS -->
-    <div class="tool-card" id="future">
-        <img src="images/placeholder.png" alt="Placeholder for future tools">
-        <div class="tool-content">
-            <h2>Future Tools</h2>
-            <p>
-            New entomological applications under development.  
-            This section will be updated as new software becomes available.
-            </p>
-        </div>
-    </div>
-
-</div>
+    <!-- Ajouter ici d'autres outils -->
+</main>
 
 <footer>
-    © 2025 Frederic Lardeux — Scientific entomology tools
+    <p>© 2026 Frederic Lardeux — Laboratoire d’entomologie et épidémiologie vectorielle</p>
 </footer>
 
 </body>
