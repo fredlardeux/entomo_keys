@@ -53,14 +53,7 @@ input {
     width: 220px;
 }
 
-.toggle {
-    padding: 8px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-}
-
-/* CHIPS + RESULT COUNT */
+/* CHIPS */
 #activeFilters {
     display: flex;
     flex-wrap: wrap;
@@ -81,10 +74,6 @@ input {
     gap: 6px;
 }
 
-.chip span {
-    font-weight: bold;
-}
-
 #resultCount {
     margin-top: 6px;
     font-size: 0.9em;
@@ -100,39 +89,98 @@ main {
     align-items: center;
 }
 
-/* CARDS */
+/* =========================
+   SCIENTIFIC CARDS V2
+========================= */
+
 .tool {
     display: flex;
     gap: 18px;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
-    max-width: 850px;
+    max-width: 860px;
     margin-bottom: 22px;
     padding: 18px;
-    border-radius: 12px;
+    border-radius: 14px;
     background: var(--card);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tool:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.10);
 }
 
 .tool > div {
     flex: 1;
     display: flex;
     flex-direction: column;
+    gap: 6px;
 }
 
+.tool img {
+    width: 95px;
+    height: 95px;
+    object-fit: contain;
+}
+
+.tool h2 {
+    margin: 0;
+    font-size: 1.2em;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.tool h2 small {
+    font-size: 0.8em;
+    opacity: 0.7;
+    font-weight: normal;
+}
+
+.tool p {
+    margin: 4px 0 0 0;
+    line-height: 1.4;
+    opacity: 0.9;
+}
+
+/* BADGES */
+.badge {
+    display: inline-block;
+    background: var(--badge);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.75em;
+    margin-right: 6px;
+}
+
+.badge.status-ok {
+    background: #d4edda;
+    color: #155724;
+}
+
+.badge.status-soon {
+    background: #fff3cd;
+    color: #856404;
+}
+
+/* BUTTONS */
 .button-group {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     margin-top: 10px;
 }
 
 .download-btn,
 .install-btn {
-    padding: 10px;
-    border-radius: 6px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.85em;
+    cursor: pointer;
     text-decoration: none;
     border: none;
-    cursor: pointer;
 }
 
 .download-btn {
@@ -143,33 +191,6 @@ main {
 .install-btn {
     background: #6c757d;
     color: white;
-}
-
-.tool {
-    align-items: center;
-}
-
-
-
-
-
-    
-.tool img {
-    width: 90px;
-    height: 90px;
-    object-fit: contain;
-}
-
-.tool h2 { margin: 0 0 6px 0; }
-.tool p { margin: 6px 0 10px 0; }
-
-.badge {
-    background: var(--badge);
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 0.8em;
-    margin-right: 6px;
-    cursor: pointer;
 }
 
 /* FILTER PANEL */
@@ -194,7 +215,6 @@ main {
     align-items: center;
 }
 
-
 .filters select,
 .filters button {
     padding: 6px;
@@ -202,14 +222,6 @@ main {
     border-radius: 6px;
     border: none;
     cursor: pointer;
-}
-
-/* FOOTER */
-.site-footer {
-    text-align: center;
-    padding: 25px 10px;
-    margin-top: auto;
-    background: var(--card);
 }
 </style>
 </head>
@@ -230,64 +242,96 @@ main {
 </header>
 
 <main>
-<!-- CARDS 1 ------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- CARD 1 -->
 <div class="tool" data-lang="fr" data-platform="android" data-taxa="moustiques" data-category="identification">
+
 <img src="images/logo_moustic_reunion.png">
+
 <div>
-<h2>Moustic Réunion</h2>
+
+<h2>Moustic Réunion <small>(FR)</small></h2>
+
+<div>
 <span class="badge">Android</span>
 <span class="badge">FR</span>
-<span class="badge">Disponible</span>
-<p>Clé interactive dichotomique d'identification des moustiques de l'île de LA RÉUNION.</p>
+<span class="badge status-ok">Disponible</span>
+</div>
+
+<p>Clé interactive des moustiques de La Réunion.</p>
+
 <div class="button-group">
-<a class="download-btn"
-   href="https://raw.githubusercontent.com/fredlardeux/entomo_tools/main/files/moustic_reunion.apk"
-   download> Télécharger APK</a>
-<button class="install-btn" onclick="openModal('moustic_reunion','fr')">📲 Installation</button>
- </div>
+<a class="download-btn" href="https://raw.githubusercontent.com/fredlardeux/entomo_tools/main/files/moustic_reunion.apk">
+⬇ Télécharger APK
+</a>
+
+<button class="install-btn" onclick="openModal('moustic_reunion','fr')">
+📲 Installation
+</button>
+</div>
+
 </div>
 </div>
 
-    
-<!-- CARDS 2 ------------------------------------------------------------------------------------------------------------------- -->
+<!-- CARD 2 -->
 <div class="tool" data-lang="fr" data-platform="android" data-taxa="moustiques" data-category="identification">
+
 <img src="images/logo_moustic_tahiti.png">
+
 <div>
-<h2>Moustic Tahiti</h2>
+
+<h2>Moustic Tahiti <small>(FR)</small></h2>
+
+<div>
 <span class="badge">Android</span>
 <span class="badge">FR</span>
-<span class="badge">Disponible bientôt</span>
-<p>Clé interactive dichotomique d'identification des moustiques de l'île de TAHITI.</p>
+<span class="badge status-soon">Bientôt</span>
+</div>
+
+<p>Clé interactive des moustiques de Tahiti.</p>
+
 <div class="button-group">
-<a class="download-btn"
-   href="#"
-   download> Télécharger APK</a>
-<button class="install-btn" onclick="openModal('moustic_tahiti','fr')">📲 Installation</button>
- 
-</div>
-</div>  
+<a class="download-btn" href="#">Télécharger APK</a>
+
+<button class="install-btn" onclick="openModal('moustic_tahiti','fr')">
+📲 Installation
+</button>
 </div>
 
+</div>
+</div>
 
-<!-- CARD 3 ------------------------------------------------------------------------------------------------------------------- -->    
+<!-- CARD 3 -->
 <div class="tool" data-lang="en" data-platform="android" data-taxa="moustiques" data-category="identification">
+
 <img src="images/logo_moustic_tahiti.png">
+
 <div>
-<h2>Moustic Tahiti <small>(english)</small></h2>
+
+<h2>Moustic Tahiti <small>(EN)</small></h2>
+
+<div>
 <span class="badge">Android</span>
 <span class="badge">EN</span>
-    <span class="badge">Acvailable soon</span>
-<p>Interactive dichotomous key for mosquito identification in TAHITI.</p>
+<span class="badge status-soon">Coming soon</span>
+</div>
+
+<p>Interactive dichotomous key for mosquito identification in Tahiti.</p>
+
 <div class="button-group">
 <a class="download-btn" href="#">Download APK</a>
-<button class="install-btn" onclick="openModal('moustic_tahiti','en')">📲 Installation</button>
+
+<button class="install-btn" onclick="openModal('moustic_tahiti','en')">
+📲 Installation
+</button>
 </div>
+
 </div>
 </div>
 
 </main>
 
-<!-- PANEL -->
+<!-- FILTER PANEL -->
 <div id="filterPanel" class="filter-panel">
 <div class="filter-header">
 <h3>Filters</h3>
@@ -319,7 +363,6 @@ main {
 <button id="resetFilters">Reset</button>
 </div>
 </div>
-
 
 <script>
 function toggleDark(){
@@ -384,7 +427,7 @@ chip("Taxa: " + taxa, taxa, "filter-taxa");
 chip("Cat: " + cat, cat, "filter-category");
 }
 
-/* events */
+/* EVENTS */
 document.getElementById("search").addEventListener("input", applyFilters);
 
 document.querySelectorAll("select").forEach(s =>
@@ -397,35 +440,17 @@ document.getElementById("search").value = "";
 applyFilters();
 };
 
-/* panel */
+/* FILTER PANEL */
 const panel = document.getElementById("filterPanel");
-
 
 document.getElementById("openFilters").onclick = () => {
 panel.classList.add("open");
-
 };
 
-document.getElementById("closeFilters").onclick = close;
-
-
-function close(){
+document.getElementById("closeFilters").onclick = () => {
 panel.classList.remove("open");
-
-}
-
-/* badges */
-document.querySelectorAll(".badge").forEach(b=>{
-b.onclick = () => {
-let v = b.innerText.toLowerCase();
-
-if(v.includes("fr")) document.getElementById("filter-lang").value="fr";
-if(v.includes("en")) document.getElementById("filter-lang").value="en";
-if(v.includes("android")) document.getElementById("filter-platform").value="android";
-
-applyFilters();
 };
-});
+
 </script>
 
 </body>
