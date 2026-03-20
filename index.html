@@ -28,7 +28,6 @@ body {
     color: var(--text);
 }
 
-/* layout */
 body.site {
     min-height: 100vh;
     display: flex;
@@ -47,7 +46,6 @@ header {
     display: flex;
     gap: 10px;
     justify-content: center;
-    align-items: center;
     margin-top: 10px;
 }
 
@@ -65,7 +63,7 @@ button {
     cursor: pointer;
 }
 
-/* chips actifs */
+/* chips */
 #activeFilters {
     margin-top: 10px;
     display: flex;
@@ -92,7 +90,7 @@ main {
     align-items: center;
 }
 
-/* CARDS (STRICT CORE INCHANGÉ) */
+/* CARDS (core conservé + enrichi) */
 .tool {
     display: flex;
     gap: 18px;
@@ -108,19 +106,12 @@ main {
     background: var(--card);
 
     box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-
-    transition: 0.2s;
-}
-
-.tool:hover {
-    transform: translateY(-3px);
 }
 
 .tool img {
     width: 90px;
     height: 90px;
     object-fit: contain;
-    flex-shrink: 0;
 }
 
 .tool h2 {
@@ -128,19 +119,25 @@ main {
 }
 
 .tool p {
-    margin: 6px 0 10px 0;
+    margin: 6px 0;
     line-height: 1.4;
+}
+
+.meta {
+    font-size: 0.85em;
+    margin-bottom: 6px;
+    opacity: 0.8;
 }
 
 .badge {
     background: var(--badge);
-    padding: 4px 8px;
+    padding: 3px 7px;
     border-radius: 6px;
-    font-size: 0.8em;
+    font-size: 0.75em;
     margin-right: 6px;
 }
 
-/* buttons */
+/* BUTTONS RESTORED */
 .button-group {
     display: flex;
     gap: 10px;
@@ -160,11 +157,10 @@ main {
     color: white;
     padding: 10px;
     border: none;
-    cursor: pointer;
     border-radius: 6px;
 }
 
-/* SIDEBAR FILTERS */
+/* SIDEBAR */
 #filterPanel {
     position: fixed;
     right: -320px;
@@ -175,15 +171,10 @@ main {
     box-shadow: -2px 0 10px rgba(0,0,0,0.2);
     padding: 20px;
     transition: 0.3s;
-    z-index: 2000;
 }
 
 #filterPanel.open {
     right: 0;
-}
-
-.filter-section {
-    margin-bottom: 15px;
 }
 
 .filter-btn {
@@ -193,16 +184,9 @@ main {
     padding: 8px;
     border-radius: 6px;
     border: none;
-    cursor: pointer;
-    background: #eee;
 }
 
-.filter-btn.active {
-    background: var(--accent);
-    color: white;
-}
-
-/* FOOTER RESTORED */
+/* FOOTER */
 .site-footer {
     text-align: center;
     padding: 25px 10px;
@@ -214,12 +198,6 @@ main {
     width: 55px;
     margin-bottom: 8px;
 }
-
-.footer-link {
-    color: var(--text);
-    text-decoration: none;
-    font-size: 0.9em;
-}
 </style>
 </head>
 
@@ -230,7 +208,6 @@ main {
 
 <div class="controls">
 <input id="search" placeholder="Recherche..." oninput="applyFilters()">
-
 <button onclick="toggleDark()">🌙</button>
 <button onclick="toggleFilters()">⚙️ Filters</button>
 </div>
@@ -247,7 +224,6 @@ main {
 <strong>Langue</strong>
 <button class="filter-btn" onclick="setFilter('lang','fr',this)">FR</button>
 <button class="filter-btn" onclick="setFilter('lang','en',this)">EN</button>
-<button class="filter-btn" onclick="setFilter('lang','es',this)">ES</button>
 </div>
 
 <div class="filter-section">
@@ -275,48 +251,57 @@ main {
 
 <main>
 
-<!-- TOOL 1 -->
+<!-- CARD 1 -->
 <div class="tool"
-     data-lang="fr"
-     data-platform="apk"
-     data-taxa="moustiques"
-     data-category="identification">
+data-lang="fr"
+data-platform="apk"
+data-taxa="moustiques"
+data-category="identification">
 
 <img src="images/logo_moustic_reunion.png">
 
 <div>
 <h2>Moustic Réunion</h2>
+
+<div class="meta">
+<span class="badge">APK</span>
+<span class="badge">FR</span>
+</div>
+
 <p>Clé d'identification des moustiques de La Réunion.</p>
+
+<div class="button-group">
+<a class="download-btn" href="#">Télécharger</a>
+<button class="install-btn">Installation</button>
+</div>
+
 </div>
 </div>
 
-<!-- TOOL 2 -->
+<!-- CARD 2 -->
 <div class="tool"
-     data-lang="fr"
-     data-platform="apk"
-     data-taxa="moustiques"
-     data-category="identification">
+data-lang="en"
+data-platform="apk"
+data-taxa="moustiques"
+data-category="identification">
 
 <img src="images/logo_moustic_tahiti.png">
 
 <div>
 <h2>Moustic Tahiti</h2>
-<p>Clé des moustiques de Tahiti.</p>
+
+<div class="meta">
+<span class="badge">APK</span>
+<span class="badge">EN</span>
 </div>
-</div>
 
-<!-- TOOL 3 -->
-<div class="tool"
-     data-lang="en"
-     data-platform="apk"
-     data-taxa="moustiques"
-     data-category="identification">
-
-<img src="images/logo_moustic_tahiti.png">
-
-<div>
-<h2>Moustic Tahiti (EN)</h2>
 <p>Identification key for mosquitoes in Tahiti.</p>
+
+<div class="button-group">
+<a class="download-btn" href="#">Download</a>
+<button class="install-btn">Install</button>
+</div>
+
 </div>
 </div>
 
@@ -326,9 +311,7 @@ main {
     <a href="https://github.com/fredlardeux/entomo_tools">
         <img src="images/Logo-github_entomotools.png" class="footer-logo">
     </a>
-    <div>
-        © 2026 - Epidemiological Entomology
-    </div>
+    <div>© 2026 - Epidemiological Entomology</div>
 </footer>
 
 <script>
@@ -345,63 +328,56 @@ function toggleFilters(){
 }
 
 function setFilter(type,value,btn){
-
     filters[type] = (filters[type] === value) ? "" : value;
-
-    document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
-    if(filters[type]) btn.classList.add("active");
-
     updateChips();
     applyFilters();
 }
 
 function updateChips(){
-    const container = document.getElementById("activeFilters");
-    container.innerHTML = "";
+    const c = document.getElementById("activeFilters");
+    c.innerHTML = "";
 
-    for(let key in filters){
-        if(filters[key]){
+    for(let k in filters){
+        if(filters[k]){
             const chip = document.createElement("div");
-            chip.className = "chip";
-            chip.innerText = key + ":" + filters[key];
-            chip.onclick = () => {
-                filters[key] = "";
+            chip.className="chip";
+            chip.innerText=k+":"+filters[k];
+            chip.onclick=()=>{
+                filters[k]="";
                 applyFilters();
                 updateChips();
             };
-            container.appendChild(chip);
+            c.appendChild(chip);
         }
     }
 }
 
 function resetFilters(){
-    filters = {lang:"",platform:"",taxa:"",category:""};
-    document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
+    filters={lang:"",platform:"",taxa:"",category:""};
     updateChips();
     applyFilters();
 }
 
 function applyFilters(){
 
-    const search = document.getElementById("search").value.toLowerCase();
-    const cards = document.querySelectorAll(".tool");
+    const search=document.getElementById("search").value.toLowerCase();
+    const cards=document.querySelectorAll(".tool");
 
-    cards.forEach(card => {
+    cards.forEach(card=>{
 
-        let show = true;
+        let show=true;
 
-        for(let key in filters){
-            if(filters[key] && !card.dataset[key].includes(filters[key])){
-                show = false;
-                break;
+        for(let k in filters){
+            if(filters[k] && !card.dataset[k].includes(filters[k])){
+                show=false;
             }
         }
 
         if(search && !card.innerText.toLowerCase().includes(search)){
-            show = false;
+            show=false;
         }
 
-        card.style.display = show ? "flex" : "none";
+        card.style.display=show?"flex":"none";
     });
 }
 
