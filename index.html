@@ -235,8 +235,20 @@ main {
 
 <script>
 function toggleDark() {
-    document.body.classList.toggle("dark");
+    const body = document.body;
+    const btn = document.getElementById("modeBtn");
+
+    body.classList.toggle("dark");
+
+    if (body.classList.contains("dark")) {
+        btn.textContent = "☀️ Light mode";
+        localStorage.setItem("theme", "dark");
+    } else {
+        btn.textContent = "🌙 Dark mode";
+        localStorage.setItem("theme", "light");
+    }
 }
+
 
 /* OPEN MODAL + LOAD JSON */
 async function openModal(app, lang) {
