@@ -28,6 +28,7 @@ body {
     color: var(--text);
 }
 
+/* layout */
 body.site {
     min-height: 100vh;
     display: flex;
@@ -43,11 +44,11 @@ header {
 }
 
 .controls {
-    margin-top: 10px;
     display: flex;
-    flex-direction: column;
     gap: 10px;
+    justify-content: center;
     align-items: center;
+    margin-top: 10px;
 }
 
 input {
@@ -57,33 +58,29 @@ input {
     width: 220px;
 }
 
-.toggle {
-    padding: 8px;
+button {
+    padding: 8px 10px;
     border-radius: 6px;
     border: none;
     cursor: pointer;
 }
 
-/* FILTER PANEL */
-.filters {
+/* chips actifs */
+#activeFilters {
+    margin-top: 10px;
     display: flex;
-    flex-wrap: wrap;
     gap: 8px;
     justify-content: center;
-    margin-top: 10px;
+    flex-wrap: wrap;
 }
 
-.filter-btn {
-    padding: 6px 10px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    background: #e0e0e0;
-}
-
-.filter-btn.active {
+.chip {
     background: var(--accent);
     color: white;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    cursor: pointer;
 }
 
 /* MAIN */
@@ -95,7 +92,7 @@ main {
     align-items: center;
 }
 
-/* CARDS (inchangé visuellement + amélioré précédent design) */
+/* CARDS (STRICT CORE INCHANGÉ) */
 .tool {
     display: flex;
     gap: 18px;
@@ -143,7 +140,7 @@ main {
     margin-right: 6px;
 }
 
-/* BUTTONS */
+/* buttons */
 .button-group {
     display: flex;
     gap: 10px;
@@ -167,7 +164,45 @@ main {
     border-radius: 6px;
 }
 
-/* FOOTER */
+/* SIDEBAR FILTERS */
+#filterPanel {
+    position: fixed;
+    right: -320px;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background: var(--card);
+    box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+    padding: 20px;
+    transition: 0.3s;
+    z-index: 2000;
+}
+
+#filterPanel.open {
+    right: 0;
+}
+
+.filter-section {
+    margin-bottom: 15px;
+}
+
+.filter-btn {
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    background: #eee;
+}
+
+.filter-btn.active {
+    background: var(--accent);
+    color: white;
+}
+
+/* FOOTER RESTORED */
 .site-footer {
     text-align: center;
     padding: 25px 10px;
@@ -175,20 +210,15 @@ main {
     background: var(--card);
 }
 
-/* MODAL */
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
+.footer-logo {
+    width: 55px;
+    margin-bottom: 8px;
 }
 
-.modal-content {
-    background: var(--card);
-    width: 320px;
-    margin: 10% auto;
-    padding: 20px;
-    border-radius: 10px;
+.footer-link {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.9em;
 }
 </style>
 </head>
@@ -199,33 +229,49 @@ main {
 <h1>Entomological Scientific Tools</h1>
 
 <div class="controls">
+<input id="search" placeholder="Recherche..." oninput="applyFilters()">
 
-<input id="search" placeholder="Recherche texte..." oninput="applyFilters()">
+<button onclick="toggleDark()">🌙</button>
+<button onclick="toggleFilters()">⚙️ Filters</button>
+</div>
 
-<button class="toggle" onclick="toggleDark()" id="modeBtn">🌙 Mode sombre</button>
+<div id="activeFilters"></div>
+</header>
 
-<div class="filters">
+<!-- SIDEBAR -->
+<div id="filterPanel">
 
+<h3>Filters</h3>
+
+<div class="filter-section">
+<strong>Langue</strong>
 <button class="filter-btn" onclick="setFilter('lang','fr',this)">FR</button>
 <button class="filter-btn" onclick="setFilter('lang','en',this)">EN</button>
 <button class="filter-btn" onclick="setFilter('lang','es',this)">ES</button>
+</div>
 
+<div class="filter-section">
+<strong>Plateforme</strong>
 <button class="filter-btn" onclick="setFilter('platform','apk',this)">APK</button>
 <button class="filter-btn" onclick="setFilter('platform','r',this)">R</button>
 <button class="filter-btn" onclick="setFilter('platform','python',this)">Python</button>
+</div>
 
+<div class="filter-section">
+<strong>Taxa</strong>
 <button class="filter-btn" onclick="setFilter('taxa','moustiques',this)">Moustiques</button>
 <button class="filter-btn" onclick="setFilter('taxa','triatomes',this)">Triatomes</button>
+</div>
 
+<div class="filter-section">
+<strong>Catégorie</strong>
 <button class="filter-btn" onclick="setFilter('category','identification',this)">Identification</button>
 <button class="filter-btn" onclick="setFilter('category','statistics',this)">Statistics</button>
-
-<button class="filter-btn" onclick="resetFilters()">Reset</button>
-
 </div>
 
+<button onclick="resetFilters()">Reset</button>
+
 </div>
-</header>
 
 <main>
 
@@ -240,18 +286,7 @@ main {
 
 <div>
 <h2>Moustic Réunion</h2>
-
-<span class="badge">Android</span>
-<span class="badge">FR</span>
-<span class="badge">Disponible</span>
-
 <p>Clé d'identification des moustiques de La Réunion.</p>
-
-<div class="button-group">
-<a class="download-btn">Télécharger</a>
-<button class="install-btn">Installation</button>
-</div>
-
 </div>
 </div>
 
@@ -266,12 +301,7 @@ main {
 
 <div>
 <h2>Moustic Tahiti</h2>
-
-<span class="badge">Android</span>
-<span class="badge">FR</span>
-
 <p>Clé des moustiques de Tahiti.</p>
-
 </div>
 </div>
 
@@ -286,64 +316,96 @@ main {
 
 <div>
 <h2>Moustic Tahiti (EN)</h2>
-
-<span class="badge">Android</span>
-<span class="badge">EN</span>
-
 <p>Identification key for mosquitoes in Tahiti.</p>
-
 </div>
 </div>
 
 </main>
 
 <footer class="site-footer">
-© 2026 Epidemiological Entomology
+    <a href="https://github.com/fredlardeux/entomo_tools">
+        <img src="images/Logo-github_entomotools.png" class="footer-logo">
+    </a>
+    <div>
+        © 2026 - Epidemiological Entomology
+    </div>
 </footer>
 
 <script>
 
 let filters = {
-    lang: "",
-    platform: "",
-    taxa: "",
-    category: ""
+    lang:"",
+    platform:"",
+    taxa:"",
+    category:""
 };
 
-function setFilter(type, value, btn) {
+function toggleFilters(){
+    document.getElementById("filterPanel").classList.toggle("open");
+}
+
+function setFilter(type,value,btn){
+
     filters[type] = (filters[type] === value) ? "" : value;
 
-    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-    if (filters[type]) btn.classList.add("active");
+    document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
+    if(filters[type]) btn.classList.add("active");
 
+    updateChips();
     applyFilters();
 }
 
-function resetFilters() {
+function updateChips(){
+    const container = document.getElementById("activeFilters");
+    container.innerHTML = "";
+
+    for(let key in filters){
+        if(filters[key]){
+            const chip = document.createElement("div");
+            chip.className = "chip";
+            chip.innerText = key + ":" + filters[key];
+            chip.onclick = () => {
+                filters[key] = "";
+                applyFilters();
+                updateChips();
+            };
+            container.appendChild(chip);
+        }
+    }
+}
+
+function resetFilters(){
     filters = {lang:"",platform:"",taxa:"",category:""};
-    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
+    updateChips();
     applyFilters();
 }
 
-function applyFilters() {
+function applyFilters(){
+
     const search = document.getElementById("search").value.toLowerCase();
     const cards = document.querySelectorAll(".tool");
 
     cards.forEach(card => {
+
         let show = true;
 
-        if (filters.lang && !card.dataset.lang.includes(filters.lang)) show = false;
-        if (filters.platform && !card.dataset.platform.includes(filters.platform)) show = false;
-        if (filters.taxa && !card.dataset.taxa.includes(filters.taxa)) show = false;
-        if (filters.category && !card.dataset.category.includes(filters.category)) show = false;
+        for(let key in filters){
+            if(filters[key] && !card.dataset[key].includes(filters[key])){
+                show = false;
+                break;
+            }
+        }
 
-        if (search && !card.innerText.toLowerCase().includes(search)) show = false;
+        if(search && !card.innerText.toLowerCase().includes(search)){
+            show = false;
+        }
 
         card.style.display = show ? "flex" : "none";
     });
 }
 
-function toggleDark() {
+function toggleDark(){
     document.body.classList.toggle("dark");
 }
 
