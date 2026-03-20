@@ -364,32 +364,38 @@ window.onclick = function(e) {
 
 
 /* FILTER SIMPLE (texte + metadata) */
-document.getElementById("search").addEventListener("keyup", function() {
+document.addEventListener("DOMContentLoaded", function() {
 
-    const filter = this.value.toLowerCase();
-    const tools = document.querySelectorAll(".tool");
+    document.getElementById("search").addEventListener("keyup", function() {
 
-    tools.forEach(tool => {
+        const filter = this.value.toLowerCase();
+        const tools = document.querySelectorAll(".tool");
 
-        // texte visible
-        const text = tool.innerText.toLowerCase();
+        tools.forEach(tool => {
 
-        // metadata
-        const lang = tool.dataset.lang || "";
-        const platform = tool.dataset.platform || "";
-        const taxa = tool.dataset.taxa || "";
-        const category = tool.dataset.category || "";
+            // texte visible
+            const text = tool.innerText.toLowerCase();
 
-        const meta = (lang + " " + platform + " " + taxa + " " + category).toLowerCase();
+            // metadata
+            const lang = tool.dataset.lang || "";
+            const platform = tool.dataset.platform || "";
+            const taxa = tool.dataset.taxa || "";
+            const category = tool.dataset.category || "";
 
-        if (text.includes(filter) || meta.includes(filter)) {
-            tool.style.display = "flex";  // IMPORTANT (car tes cartes sont en flex)
-        } else {
-            tool.style.display = "none";
-        }
+            const meta = (lang + " " + platform + " " + taxa + " " + category).toLowerCase();
+
+            if (text.includes(filter) || meta.includes(filter)) {
+                tool.style.display = "flex";  // important
+            } else {
+                tool.style.display = "none";
+            }
+
+        });
 
     });
+
 });
+
 </script>
 
 </body>
