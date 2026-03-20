@@ -154,20 +154,6 @@ main {
     align-items: center;
 }
 
-#overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.4);
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.3s;
-    z-index: 1500;
-}
-
-#overlay.show {
-    opacity: 1;
-    visibility: visible;
-}
 
 .filters select,
 .filters button {
@@ -260,7 +246,6 @@ main {
 </div>
 </div>
 
-<div id="overlay"></div>
 
 <script>
 function toggleDark(){
@@ -340,19 +325,19 @@ applyFilters();
 
 /* panel */
 const panel = document.getElementById("filterPanel");
-const overlay = document.getElementById("overlay");
+
 
 document.getElementById("openFilters").onclick = () => {
 panel.classList.add("open");
-overlay.classList.add("show");
+
 };
 
 document.getElementById("closeFilters").onclick = close;
-overlay.onclick = close;
+
 
 function close(){
 panel.classList.remove("open");
-overlay.classList.remove("show");
+
 }
 
 /* badges */
