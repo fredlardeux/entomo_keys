@@ -3,211 +3,348 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Entomo Tools</title>
+<title>Entomological Scientific Tools</title>
 
 <style>
+:root {
+    --bg: #f4f6f9;
+    --card: #ffffff;
+    --text: #333;
+    --accent: #2c7be5;
+    --badge: #e1ecff;
+}
+
+body.dark {
+    --bg: #1e1e1e;
+    --card: #2a2a2a;
+    --text: #f1f1f1;
+    --badge: #3a3a3a;
+}
+
 body {
     font-family: Arial;
     margin: 0;
-    background: #f4f6f9;
+    background: var(--bg);
+    color: var(--text);
 }
 
-/* CARDS */
+/* sticky layout */
+body.site {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* HEADER */
+header {
+    background: linear-gradient(135deg, #2c3e50, #2c7be5);
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+.controls {
+    margin-top: 10px;
+}
+
+input {
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    width: 220px;
+}
+
+.toggle {
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+/* MAIN = zone centrée + air */
+main {
+    flex: 1;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* CARTE = version aérée + centrée */
 .tool {
     display: flex;
     gap: 18px;
+    align-items: flex-start;
+
+    width: 100%;
+    max-width: 850px;
+
+    margin-bottom: 22px;
     padding: 18px;
-    margin: 20px auto;
-    max-width: 800px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
+    border-radius: 12px;
+    background: var(--card);
+
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+
+    transition: 0.2s;
 }
 
+.tool:hover {
+    transform: translateY(-3px);
+}
+
+/* IMAGE */
 .tool img {
     width: 90px;
     height: 90px;
     object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* TITRES & TEXTE */
+.tool h2 {
+    margin: 0 0 6px 0;
+}
+
+.tool p {
+    margin: 6px 0 10px 0;
+    line-height: 1.4;
+}
+
+/* BADGES */
+.badge {
+    background: var(--badge);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.8em;
+    margin-right: 6px;
 }
 
 /* BUTTONS */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.download-btn {
+    background: var(--accent);
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
 .install-btn {
     background: #6c757d;
     color: white;
     padding: 10px;
     border: none;
-    border-radius: 6px;
     cursor: pointer;
+    border-radius: 6px;
+}
+
+/* FOOTER */
+.site-footer {
+    text-align: center;
+    padding: 25px 10px;
+    margin-top: auto;
+    background: var(--card);
+    color: var(--text);
+    opacity: 0.8;
+}
+
+.footer-logo {
+    width: 55px;
+    margin-bottom: 8px;
 }
 
 /* MODAL */
 .modal {
     display: none;
     position: fixed;
-    z-index: 3000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: rgba(0,0,0,0.6);
+    z-index: 1000;
 }
 
 .modal-content {
-    background: white;
-    margin: 6% auto;
+    background: var(--card);
+    color: var(--text);
+    width: 320px;
+    margin: 10% auto;
     padding: 20px;
-    width: 65%;
     border-radius: 10px;
-    max-height: 75%;
-    overflow-y: auto;
     position: relative;
 }
 
-/* CLOSE */
 .close {
     position: absolute;
-    right: 12px;
-    top: 8px;
-    cursor: pointer;
-    font-size: 18px;
-}
-
-/* PRINT BUTTON */
-.print-btn {
-    position: absolute;
-    right: 50px;
-    top: 8px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 6px;
-    background: #2c7be5;
-    color: white;
+    right: 10px;
+    top: 5px;
     cursor: pointer;
 }
 
-/* PRINT MODE */
-@media print {
-    body * {
-        visibility: hidden;
-    }
-
-    #modal, #modal * {
-        visibility: visible;
-    }
-
-    #modal {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: auto;
-        background: white;
-    }
-
-    .close, .print-btn {
-        display: none;
-    }
+.step {
+    margin: 8px 0;
 }
 </style>
 </head>
 
-<body>
+<body class="site">
 
-<!-- ================= CARDS ================= -->
+<header>
+<h1>Entomological Scientific Tools</h1>
 
-<div class="tool"
-     data-install="tutoriels/moustic_reunion_fr.html">
+<div class="controls">
+<input id="search" placeholder="Filtrer...">
+<button class="toggle" id="modeBtn" onclick="toggleDark()">🌙 Mode sombre</button>
+</div>
+</header>
 
-    <img src="images/moustic.png">
+<main>
 
-    <div>
-        <h2>Moustic Réunion</h2>
+<!-- CARD 1 -->
+<div class="tool">
+<img src="images/logo_moustic_reunion.png">
 
-        <button class="install-btn" onclick="openInstall(this)">
-            Installation
-        </button>
-    </div>
+<div>
+<h2>Moustic Réunion</h2>
+
+<span class="badge">Android</span>
+<span class="badge">FR</span>
+<span class="badge">Disponible</span>
+
+<p>Clé interactive dichotomique d'identification des moustiques de l'île de LA RÉUNION.</p>
+
+<div class="button-group">
+<a class="download-btn" href="#">Télécharger APK</a>
+<button class="install-btn" onclick="openModal('moustic_reunion','fr')">
+📲 Installation
+</button>
+</div>
+</div>
 </div>
 
-<div class="tool"
-     data-install="tutoriels/moustic_tahiti_fr.html">
+<!-- CARD 2 -->
+<div class="tool">
+<img src="images/logo_moustic_tahiti.png">
 
-    <img src="images/moustic.png">
+<div>
+<h2>Moustic Tahiti</h2>
 
-    <div>
-        <h2>Moustic Tahiti</h2>
+<span class="badge">Android</span>
+<span class="badge">FR</span>
+<span class="badge">Disponible bientôt</span>
 
-        <button class="install-btn" onclick="openInstall(this)">
-            Installation
-        </button>
-    </div>
+<p>Clé interactive dichotomique d'identification des moustiques de TAHITI.</p>
+
+<div class="button-group">
+<a class="download-btn" href="#">Télécharger APK</a>
+<button class="install-btn" onclick="openModal('moustic_tahiti','fr')">
+📲 Installation
+</button>
+</div>
+</div>
 </div>
 
-<div class="tool"
-     data-install="tutoriels/moustic_tahiti_en.html">
+<!-- CARD 3 -->
+<div class="tool">
+<img src="images/logo_moustic_tahiti.png">
 
-    <img src="images/moustic.png">
+<div>
+<h2>Moustic Tahiti <span>(en)</span></h2>
 
-    <div>
-        <h2>Moustic Tahiti (EN)</h2>
+<span class="badge">Android</span>
+<span class="badge">EN</span>
+<span class="badge">Available soon</span>
 
-        <button class="install-btn" onclick="openInstall(this)">
-            Installation
-        </button>
-    </div>
+<p>Interactive dichotomous key for mosquito identification in TAHITI.</p>
+
+<div class="button-group">
+<a class="download-btn" href="#">Download APK</a>
+<button class="install-btn" onclick="openModal('moustic_tahiti','en')">
+📲 Installation
+</button>
+</div>
+</div>
 </div>
 
-<!-- ================= MODAL ================= -->
+</main>
 
+<footer class="site-footer">
+<img src="images/Logo-github_entomotools.png" class="footer-logo">
+<div>© 2026 - FLX - Epidemiological Entomology</div>
+</footer>
+
+<!-- MODAL -->
 <div id="modal" class="modal">
-
-    <div class="modal-content">
-
-        <span class="close" onclick="closeModal()">✖</span>
-        <button class="print-btn" onclick="window.print()">Imprimer</button>
-
-        <div id="modal-text">Chargement...</div>
-
-    </div>
+<div class="modal-content">
+<span class="close" onclick="closeModal()">✖</span>
+<div id="modal-text"></div>
 </div>
-
-<!-- ================= SCRIPT ================= -->
+</div>
 
 <script>
+function toggleDark() {
+    const body = document.body;
+    const btn = document.getElementById("modeBtn");
 
-/* OPEN INSTALL FILE */
-function openInstall(btn){
+    body.classList.toggle("dark");
 
-    const card = btn.closest(".tool");
-    const file = card.dataset.install;
+    if (body.classList.contains("dark")) {
+        btn.textContent = "☀️ Light mode";
+        localStorage.setItem("theme", "dark");
+    } else {
+        btn.textContent = "🌙 Dark mode";
+        localStorage.setItem("theme", "light");
+    }
+}
 
+/* restore theme */
+window.onload = function () {
+    const theme = localStorage.getItem("theme");
+    const btn = document.getElementById("modeBtn");
+
+    if (theme === "dark") {
+        document.body.classList.add("dark");
+        btn.textContent = "☀️ Light mode";
+    }
+};
+
+/* modal */
+async function openModal(app, lang) {
     const modal = document.getElementById("modal");
     const container = document.getElementById("modal-text");
 
-    container.innerHTML = "Chargement...";
-    modal.style.display = "block";
+    try {
+        const res = await fetch(`tutoriels/${app}_${lang}.json`);
+        const data = await res.json();
 
-    fetch(file)
-        .then(r => r.text())
-        .then(html => {
-            container.innerHTML = html;
-        })
-        .catch(() => {
-            container.innerHTML = "Fichier d'installation indisponible";
+        let html = `<h3>${data.title}</h3>`;
+        data.steps.forEach(s => {
+            html += `<div class="step">• ${s}</div>`;
         });
+
+        container.innerHTML = html;
+
+    } catch (e) {
+        container.innerHTML = "Tutoriel indisponible";
+    }
+
+    modal.style.display = "block";
 }
 
-/* CLOSE MODAL */
-function closeModal(){
+function closeModal() {
     document.getElementById("modal").style.display = "none";
 }
 
-/* CLICK OUTSIDE MODAL */
-window.addEventListener("click", function(e){
-    const modal = document.getElementById("modal");
-    if (e.target === modal) modal.style.display = "none";
-});
-
+window.onclick = function(e) {
+    if (e.target === document.getElementById("modal")) {
+        closeModal();
+    }
+};
 </script>
 
 </body>
