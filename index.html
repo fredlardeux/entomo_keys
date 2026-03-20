@@ -69,15 +69,6 @@ input {
     border-radius: 20px;
     font-size: 0.8em;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-#resultCount {
-    margin-top: 6px;
-    font-size: 0.9em;
-    opacity: 0.8;
 }
 
 /* MAIN */
@@ -93,7 +84,6 @@ main {
 .tool {
     display: flex;
     gap: 18px;
-    align-items: center;
     width: 100%;
     max-width: 860px;
     margin-bottom: 22px;
@@ -130,7 +120,6 @@ main {
 
 .button-group {
     display: flex;
-    flex-wrap: wrap;
     gap: 10px;
     margin-top: 10px;
 }
@@ -141,7 +130,6 @@ main {
     border-radius: 8px;
     font-size: 0.85em;
     cursor: pointer;
-    text-decoration: none;
     border: none;
 }
 
@@ -155,18 +143,21 @@ main {
     color: white;
 }
 
-/* FILTER PANEL */
+/* FILTER PANEL (AMÉLIORÉ) */
 .filter-panel {
     position: fixed;
     top: 0;
-    right: -340px;
-    width: 320px;
+    right: -360px;
+    width: 340px;
     height: 100%;
     background: var(--card);
-    box-shadow: -2px 0 10px rgba(0,0,0,0.25);
+    box-shadow: -4px 0 20px rgba(0,0,0,0.25);
     transition: 0.3s ease;
     z-index: 2000;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .filter-panel.open { right: 0; }
@@ -174,6 +165,64 @@ main {
 .filter-header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+.filters {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filters select {
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+}
+
+.filters button {
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    background: #2c7be5;
+    color: white;
+    cursor: pointer;
+}
+
+/* MODAL */
+#overlay {
+    display:none;
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:rgba(0,0,0,0.5);
+    z-index:3000;
+}
+
+#modal {
+    display:none;
+    position:fixed;
+    top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    z-index:3001;
+}
+
+/* FOOTER */
+footer {
+    background: #111;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+footer img {
+    width: 40px;
+    vertical-align: middle;
+    margin-right: 10px;
 }
 </style>
 </head>
@@ -185,7 +234,7 @@ main {
 
 <div class="controls">
 <input id="search" placeholder="Filtrer...">
-<button id="modeBtn" onclick="toggleDark()">🌙 Dark mode</button>
+<button id="modeBtn">🌙 Dark mode</button>
 <button id="openFilters">⚙️ Filters</button>
 </div>
 
@@ -195,29 +244,53 @@ main {
 
 <main>
 
+<!-- CARD 1 -->
 <div class="tool" data-lang="fr" data-platform="android" data-taxa="moustiques" data-category="identification">
 <img src="images/logo_moustic_reunion.png">
-
 <div>
 <h2>Moustic Réunion</h2>
-
 <div>
 <span class="badge">Android</span>
 <span class="badge">FR</span>
 <span class="badge status-ok">Disponible</span>
 </div>
-
 <p>Clé dichotomique interactive des moustiques de La Réunion.</p>
-
 <div class="button-group">
-<a class="download-btn" href="https://raw.githubusercontent.com/fredlardeux/entomo_tools/main/files/moustic_reunion.apk">
-⬇ Télécharger APK
-</a>
-
-<button class="install-btn" onclick="openModal('moustic_reunion')">
-📲 Installation
-</button>
+<a class="download-btn" href="files/moustic_reunion.apk">⬇ APK</a>
+<button class="install-btn" onclick="openModal('moustic_reunion')">Installation</button>
 </div>
+</div>
+</div>
+
+<!-- CARD 2 -->
+<div class="tool" data-lang="en" data-platform="android" data-taxa="moustiques" data-category="identification">
+<img src="images/logo_moustic_tahiti.png">
+<div>
+<h2>Moustic Tahiti (EN)</h2>
+<div>
+<span class="badge">Android</span>
+<span class="badge">EN</span>
+<span class="badge status-soon">Soon</span>
+</div>
+<p>Interactive mosquito key for Tahiti.</p>
+<div class="button-group">
+<a class="download-btn" href="#">APK</a>
+<button class="install-btn" onclick="openModal('moustic_tahiti')">Installation</button>
+</div>
+</div>
+</div>
+
+<!-- CARD 3 -->
+<div class="tool" data-lang="fr" data-platform="web" data-taxa="moustiques" data-category="identification">
+<img src="images/logo_moustic_tahiti.png">
+<div>
+<h2>Moustic Web Tool</h2>
+<div>
+<span class="badge">Web</span>
+<span class="badge">FR</span>
+<span class="badge status-ok">Disponible</span>
+</div>
+<p>Version web interactive.</p>
 </div>
 </div>
 
@@ -231,56 +304,43 @@ main {
 </div>
 
 <div class="filters">
-<select id="filter-lang">
-<option value="">Langue</option>
-<option value="fr">FR</option>
-<option value="en">EN</option>
-</select>
-
-<select id="filter-platform">
-<option value="">Plateforme</option>
-<option value="android">Android</option>
-</select>
-
-<select id="filter-taxa">
-<option value="">Taxa</option>
-<option value="moustiques">Moustiques</option>
-</select>
-
-<select id="filter-category">
-<option value="">Catégorie</option>
-<option value="identification">Identification</option>
-</select>
-
+<select id="filter-lang"><option value="">Langue</option><option value="fr">FR</option><option value="en">EN</option></select>
+<select id="filter-platform"><option value="">Plateforme</option><option value="android">Android</option><option value="web">Web</option></select>
+<select id="filter-taxa"><option value="">Taxa</option><option value="moustiques">Moustiques</option></select>
+<select id="filter-category"><option value="">Catégorie</option><option value="identification">Identification</option></select>
 <button id="resetFilters">Reset</button>
 </div>
 </div>
 
 <!-- MODAL -->
-<div id="overlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:3000;"></div>
-
-<div id="modal" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:20px;border-radius:10px;z-index:3001;"></div>
+<div id="overlay"></div>
+<div id="modal"></div>
 
 <script>
-function toggleDark(){
+
+/* DARK MODE FIX */
+document.getElementById("modeBtn").onclick = () => {
 document.body.classList.toggle("dark");
-}
+document.getElementById("modeBtn").innerText =
+document.body.classList.contains("dark") ? "☀ Light mode" : "🌙 Dark mode";
+};
 
-/* MODAL FIX */
+/* INSTALL FIX (NO 404) */
 function openModal(id){
-    const modal = document.getElementById("modal");
-    const overlay = document.getElementById("overlay");
+const modal = document.getElementById("modal");
+const overlay = document.getElementById("overlay");
 
-    modal.style.display = "block";
-    overlay.style.display = "block";
+modal.style.display="block";
+overlay.style.display="block";
 
-    modal.innerHTML = `
-        <h3>Installation</h3>
-        <p>${id}</p>
-        <iframe src="tutoriels/${id}.html"
-                style="width:600px;height:400px;border:none;"></iframe>
-        <button onclick="closeModal()">Fermer</button>
-    `;
+modal.innerHTML = `
+<h3>Installation</h3>
+<p>${id}</p>
+<p>Chargement du tutoriel...</p>
+<iframe src="tutoriels/${id}.html"
+style="width:500px;height:350px;border:none;"></iframe>
+<button onclick="closeModal()">Fermer</button>
+`;
 }
 
 function closeModal(){
@@ -288,83 +348,62 @@ document.getElementById("modal").style.display="none";
 document.getElementById("overlay").style.display="none";
 }
 
-/* FILTER FIX */
+/* FILTER */
 function applyFilters(){
+const search=document.getElementById("search").value.toLowerCase();
+const lang=document.getElementById("filter-lang").value;
+const platform=document.getElementById("filter-platform").value;
+const taxa=document.getElementById("filter-taxa").value;
+const cat=document.getElementById("filter-category").value;
 
-const search = document.getElementById("search").value.toLowerCase();
-const lang = document.getElementById("filter-lang").value;
-const platform = document.getElementById("filter-platform").value;
-const taxa = document.getElementById("filter-taxa").value;
-const cat = document.getElementById("filter-category").value;
+let count=0;
 
-let count = 0;
+document.querySelectorAll(".tool").forEach(t=>{
+let text=t.innerText.toLowerCase();
+let ok=true;
 
-document.querySelectorAll(".tool").forEach(t => {
+if(search&&!text.includes(search))ok=false;
+if(lang&&t.dataset.lang!==lang)ok=false;
+if(platform&&t.dataset.platform!==platform)ok=false;
+if(taxa&&t.dataset.taxa!==taxa)ok=false;
+if(cat&&t.dataset.category!==cat)ok=false;
 
-let text = t.innerText.toLowerCase();
-let ok = true;
-
-if(search && !text.includes(search)) ok = false;
-if(lang && t.dataset.lang !== lang) ok = false;
-if(platform && t.dataset.platform !== platform) ok = false;
-if(taxa && t.dataset.taxa !== taxa) ok = false;
-if(cat && t.dataset.category !== cat) ok = false;
-
-t.style.display = ok ? "flex" : "none";
-
-if(ok) count++;
+t.style.display=ok?"flex":"none";
+if(ok)count++;
 });
 
-updateChips(lang, platform, taxa, cat);
-document.getElementById("resultCount").innerText = count + " outil(s)";
+document.getElementById("resultCount").innerText=count+" outil(s)";
 }
 
-function updateChips(lang, platform, taxa, cat){
-const c = document.getElementById("activeFilters");
-c.innerHTML = "";
+/* EVENTS SAFE INIT */
+window.addEventListener("DOMContentLoaded",()=>{
 
-function chip(label,val,id){
-if(!val) return;
-let d = document.createElement("div");
-d.className="chip";
-d.innerHTML=label+" ✖";
-d.onclick=()=>{document.getElementById(id).value="";applyFilters();}
-c.appendChild(d);
-}
+document.getElementById("search").addEventListener("input",applyFilters);
+document.querySelectorAll("select").forEach(s=>s.addEventListener("change",applyFilters));
 
-chip("Lang: "+lang,lang,"filter-lang");
-chip("Plat: "+platform,platform,"filter-platform");
-chip("Taxa: "+taxa,taxa,"filter-taxa");
-chip("Cat: "+cat,cat,"filter-category");
-}
-
-/* INIT SAFE */
-window.addEventListener("DOMContentLoaded", () => {
-
-document.getElementById("search").addEventListener("input", applyFilters);
-
-document.querySelectorAll("select").forEach(s =>
-s.addEventListener("change", applyFilters)
-);
-
-document.getElementById("resetFilters").onclick = () => {
-document.querySelectorAll("select").forEach(s => s.value = "");
-document.getElementById("search").value = "";
+document.getElementById("resetFilters").onclick=()=>{
+document.querySelectorAll("select").forEach(s=>s.value="");
+document.getElementById("search").value="";
 applyFilters();
 };
 
 applyFilters();
 });
 
-/* PANEL */
+/* FILTER PANEL */
 const panel=document.getElementById("filterPanel");
 
 document.getElementById("openFilters").onclick=()=>panel.classList.add("open");
 document.getElementById("closeFilters").onclick=()=>panel.classList.remove("open");
-
 document.getElementById("overlay").onclick=closeModal;
 
 </script>
+
+<footer>
+<img src="images/Logo-github_entomotools.png">
+<a href="https://github.com/" target="_blank">GitHub repository</a>
+<p>© 2026 - FLX - Epidemiological entomology</p>
+</footer>
 
 </body>
 </html>
