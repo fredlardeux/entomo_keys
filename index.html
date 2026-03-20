@@ -28,11 +28,12 @@ body {
     color: var(--text);
 }
 
+/* sticky layout */
 body.site {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-}    
+}
 
 header {
     background: linear-gradient(135deg, #2c3e50, #2c7be5);
@@ -61,21 +62,37 @@ input {
 
 main {
     flex: 1;
+    padding: 20px;
 }
 
+/* CARDS (inchangé visuellement) */
 .tool {
-    background: var(--card);
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    transition: 0.2s;
+}
+
+.tool:hover {
+    transform: translateY(-3px);
 }
 
 .tool img {
-    width: 100%;
-    height: 160px;
+    width: 90px;
+    height: 90px;
     object-fit: contain;
+    flex-shrink: 0;
 }
 
+.tool h2,
+.tool p,
+.tool span,
+.tool .button-group {
+    margin: 3px 0;
+}
+
+/* BADGES */
 .badge {
     background: var(--badge);
     padding: 4px 8px;
@@ -83,6 +100,7 @@ main {
     font-size: 0.8em;
 }
 
+/* BUTTONS */
 .button-group {
     display: flex;
     gap: 10px;
@@ -106,10 +124,11 @@ main {
     border-radius: 6px;
 }
 
+/* FOOTER */
 .site-footer {
     text-align: center;
     padding: 25px 10px;
-    margin-top: auto; /* clé du sticky footer */
+    margin-top: auto;
     color: var(--text);
     opacity: 0.8;
     background: var(--card);
@@ -126,11 +145,6 @@ main {
     font-size: 0.9em;
 }
 
-
-
-
-
-    
 /* MODAL */
 .modal {
     display: none;
@@ -163,11 +177,8 @@ main {
 </style>
 </head>
 
-<body>
 <body class="site">
 
-
-    
 <header>
 <h1>Entomological Scientific Tools</h1>
 
@@ -183,6 +194,7 @@ main {
 <div class="tool">
 <img src="images/logo_moustic_reunion.png">
 
+<div>
 <h2>Moustic Réunion</h2>
 
 <span class="badge">Android</span>
@@ -197,52 +209,56 @@ main {
 <button class="install-btn" onclick="openModal('moustic_reunion','fr')">
 📲 Installation
 </button>
-
-
 </div>
 </div>
+</div>
 
-<!-- TAHITI  FR-->
+<!-- TAHITI FR -->
 <div class="tool">
 <img src="images/logo_moustic_tahiti.png">
 
-<h2>Moustic Tahiti</h2>    
+<div>
+<h2>Moustic Tahiti</h2>
+
 <span class="badge">Android</span>
 <span class="badge">FR</span>
 <span class="badge">Disponible bientôt</span>
 
 <p>Clé interactive dichotomique d'identification des moustiques de l'île de TAHITI.</p>
+
 <div class="button-group">
 <a class="download-btn" href="#"> Télécharger APK</a>
 
 <button class="install-btn" onclick="openModal('moustic_tahiti','fr')">
 📲 Installation
 </button>
-    
+</div>
 </div>
 </div>
 
-<!-- TAHITI  EN-->
+<!-- TAHITI EN -->
 <div class="tool">
 <img src="images/logo_moustic_tahiti.png">
 
-<h2>Moustic Tahiti</h2> (en)   
+<div>
+<h2>Moustic Tahiti <span>(en)</span></h2>
+
 <span class="badge">Android</span>
 <span class="badge">EN</span>
 <span class="badge">Available soon</span>
 
 <p>Interactive dichotomous key for identifying mosquitoes on the island of TAHITI.</p>
+
 <div class="button-group">
 <a class="download-btn" href="#"> Download APK</a>
 
 <button class="install-btn" onclick="openModal('moustic_tahiti','en')">
 📲 Installation
 </button>
-    
+</div>
 </div>
 </div>
 
-    
 </main>
 
 <footer class="site-footer">
@@ -255,11 +271,6 @@ main {
     </div>
 </footer>
 
-
-
-
-
-    
 <!-- MODAL -->
 <div id="modal" class="modal">
 <div class="modal-content">
@@ -284,8 +295,18 @@ function toggleDark() {
     }
 }
 
+/* restore theme */
+window.onload = function () {
+    const theme = localStorage.getItem("theme");
+    const btn = document.getElementById("modeBtn");
 
-/* OPEN MODAL + LOAD JSON */
+    if (theme === "dark") {
+        document.body.classList.add("dark");
+        btn.textContent = "☀️ Light mode";
+    }
+};
+
+/* MODAL + JSON */
 async function openModal(app, lang) {
     const modal = document.getElementById("modal");
     const container = document.getElementById("modal-text");
