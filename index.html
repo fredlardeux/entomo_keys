@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Outils Scientifiques</title>
+<title>Entomological Scientific Tools</title>
 
 <style>
 :root {
@@ -11,12 +11,14 @@
     --card: #ffffff;
     --text: #333;
     --accent: #2c7be5;
+    --badge: #e1ecff;
 }
 
 body.dark {
     --bg: #1e1e1e;
     --card: #2a2a2a;
     --text: #f1f1f1;
+    --badge: #3a3a3a;
 }
 
 /* GLOBAL */
@@ -39,22 +41,19 @@ header {
     margin-top: 15px;
 }
 
-/* FILTER */
 input {
     padding: 8px;
     border-radius: 6px;
     border: none;
-    width: 200px;
+    width: 220px;
 }
 
-/* DARK BUTTON */
 .toggle {
     margin-left: 10px;
     padding: 8px 12px;
     cursor: pointer;
     border: none;
     border-radius: 6px;
-    background: white;
 }
 
 /* GRID */
@@ -84,8 +83,24 @@ main {
 .tool img {
     width: 100%;
     height: 160px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 8px;
+    background: #fff;
+}
+
+/* TITLES */
+.tool h2 {
+    margin-top: 10px;
+}
+
+/* BADGES */
+.badge {
+    display: inline-block;
+    background: var(--badge);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.8em;
+    margin-right: 5px;
 }
 
 /* BUTTON */
@@ -121,30 +136,51 @@ footer {
 
     <div class="controls">
         <input type="text" id="search" placeholder="Filtrer...">
-        <button class="toggle" onclick="toggleDark()">🌙 Mode sombre</button>
+        <button id="modeBtn" class="toggle" onclick="toggleDark()">🌙 Mode sombre</button>
     </div>
 </header>
 
 <main id="tools">
 
+<!-- Outil 1 -->
 <div class="tool">
-    <img src="https://images/logo_moustic_reunion.png">
+    <!-- ⚠️ IMPORTANT : mettre les images dans /images/ -->
+    <img src="images/moustic_reunion.png" alt="Moustic Réunion">
+
     <h2>Moustic Réunion</h2>
-    <p>Identification des moustiques de l'île de LA REUNION</p>
-    <p>Application ANDROID en français (in french)</p>
+
+    <div>
+        <span class="badge">Android</span>
+        <span class="badge">FR</span>
+        <span class="badge">Disponible</span>
+    </div>
+
+    <p>Clé interactive d’identification des moustiques de l'île de La Réunion.</p>
+
     <a class="download-btn" href="https://github.com/fredlardeux/entomo_keys/releases/download/v1.0/2025-05-16_moustic_Reunion.apk">
         Télécharger APK
     </a>
+
     <p class="doi">
-        DOI : <a href="https://zenodo.org/records/19097950">10.5281/zenodo.19097950</a>
+        DOI : <a href="https://zenodo.org/records/19097950" target="_blank">
+        10.5281/zenodo.19097950</a>
     </p>
 </div>
 
+<!-- Outil 2 -->
 <div class="tool">
-     <img src="https://images/logo_moustic_tahiti.png">
+    <img src="images/moustic_tahiti.png" alt="Moustic Tahiti">
+
     <h2>Moustic Tahiti</h2>
-    <p>Identification des moustiques de l'île de TAHITI</p>
-    <p>Application ANDROID en cours de développement</p>
+
+    <div>
+        <span class="badge">Android</span>
+        <span class="badge">FR</span>
+        <span class="badge">En développement</span>
+    </div>
+
+    <p>Clé interactive d’identification des moustiques de Tahiti.</p>
+
     <a class="download-btn" href="#">Bientôt disponible</a>
 </div>
 
@@ -155,10 +191,32 @@ footer {
 </footer>
 
 <script>
-/* DARK MODE */
+/* DARK MODE + mémorisation */
 function toggleDark() {
-    document.body.classList.toggle("dark");
+    const body = document.body;
+    const btn = document.getElementById("modeBtn");
+
+    body.classList.toggle("dark");
+
+    if (body.classList.contains("dark")) {
+        btn.textContent = "☀️ Mode clair";
+        localStorage.setItem("theme", "dark");
+    } else {
+        btn.textContent = "🌙 Mode sombre";
+        localStorage.setItem("theme", "light");
+    }
 }
+
+/* Charger préférence utilisateur */
+window.onload = function() {
+    const theme = localStorage.getItem("theme");
+    const btn = document.getElementById("modeBtn");
+
+    if (theme === "dark") {
+        document.body.classList.add("dark");
+        btn.textContent = "☀️ Mode clair";
+    }
+};
 
 /* FILTER */
 document.getElementById("search").addEventListener("keyup", function() {
