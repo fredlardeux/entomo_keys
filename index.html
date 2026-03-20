@@ -88,11 +88,6 @@ main {
     background: #fff;
 }
 
-/* TITLES */
-.tool h2 {
-    margin-top: 10px;
-}
-
 /* BADGES */
 .badge {
     display: inline-block;
@@ -103,10 +98,15 @@ main {
     margin-right: 5px;
 }
 
+/* BUTTON GROUP */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
 /* BUTTON */
 .download-btn {
-    display: inline-block;
-    margin-top: 10px;
     background: var(--accent);
     color: white;
     padding: 10px;
@@ -114,16 +114,48 @@ main {
     border-radius: 6px;
 }
 
-/* DOI */
-.doi {
-    font-size: 0.85em;
+.install-btn {
+    background: #6c757d;
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+}
+
+.modal-content {
+    background: var(--card);
+    color: var(--text);
+    margin: 10% auto;
+    padding: 20px;
+    width: 320px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    cursor: pointer;
 }
 
 /* FOOTER */
 footer {
     text-align: center;
     padding: 20px;
-    margin-top: 30px;
 }
 </style>
 </head>
@@ -144,72 +176,84 @@ footer {
 
 <!-- Outil 1 -->
 <div class="tool">
-    <!-- ⚠️ IMPORTANT : mettre les images dans /images/ -->
-    <img src="images/logo_moustic_reunion.png" alt="Moustic Réunion">
+<img src="images/logo_moustic_reunion.png">
 
-    <h2>Moustic Réunion</h2>
+<h2>Moustic Réunion</h2>
 
-    <div>
-        <span class="badge">Android</span>
-        <span class="badge">FR</span>
-        <span class="badge">Disponible</span>
-    </div>
+<span class="badge">Android</span>
+<span class="badge">FR</span>
+<span class="badge">Disponible</span>
 
-    <p>Clé interactive dichotomique d’identification des moustiques de l'île de LA REUNION.</p>
+<p>Clé interactive dichotomique des moustiques de La Réunion.</p>
 
-    <a class="download-btn" href="https://github.com/fredlardeux/entomo_keys/releases/download/v1.0/2025-05-16_moustic_Reunion.apk">
-        Télécharger APK
-    </a>
+<div class="button-group">
+<a class="download-btn" href="https://github.com/fredlardeux/entomo_keys/releases/download/v1.0/2025-05-16_moustic_Reunion.apk">
+Télécharger APK
+</a>
 
-    <p class="doi">
-        DOI : <a href="https://zenodo.org/records/19097950" target="_blank">
-        10.5281/zenodo.19097950</a>
-    </p>
+<button class="install-btn" onclick="openModal('fr')">
+📲 Installation
+</button>
+</div>
 </div>
 
 <!-- Outil 2 -->
 <div class="tool">
-    <img src="images/logo_moustic_tahiti.png" alt="Moustic Tahiti">
+<img src="images/logo_moustic_tahiti.png">
 
-    <h2>Moustic Tahiti</h2>
+<h2>Moustic Tahiti</h2>
 
-    <div>
-        <span class="badge">Android</span>
-        <span class="badge">FR</span>
-        <span class="badge">En développement</span>
-    </div>
+<span class="badge">Android</span>
+<span class="badge">FR</span>
+<span class="badge">En développement</span>
 
-    <p>Clé interactive dichotomique d’identification des moustiques de l'île de TAHITI.</p>
+<p>Clé interactive des moustiques de Tahiti.</p>
 
-    <a class="download-btn" href="#">Bientôt disponible</a>
+<div class="button-group">
+<a class="download-btn" href="#">Bientôt disponible</a>
+
+<button class="install-btn" onclick="openModal('fr')">
+📲 Installation
+</button>
+</div>
 </div>
 
 <!-- Outil 3 -->
 <div class="tool">
-    <img src="images/logo_moustic_tahiti.png" alt="Moustic Tahiti">
+<img src="images/logo_moustic_tahiti.png">
 
-    <h2>Moustic Tahiti</h2>
+<h2>Moustic Tahiti (EN)</h2>
 
-    <div>
-        <span class="badge">Android</span>
-        <span class="badge">EN</span>
-        <span class="badge">Developping</span>
-    </div>
+<span class="badge">Android</span>
+<span class="badge">EN</span>
+<span class="badge">Developing</span>
 
-    <p>Interactive dichotomic key for identifying the mosquitoes of TAHITI island.</p>
+<p>Interactive dichotomous key for mosquito identification.</p>
 
-    <a class="download-btn" href="#">Available soon</a>
+<div class="button-group">
+<a class="download-btn" href="#">Available soon</a>
+
+<button class="install-btn" onclick="openModal('en')">
+📲 Installation
+</button>
+</div>
 </div>
 
-    
 </main>
 
 <footer>
-    © 2026 Epidemiological Entomology
+© 2026 Epidemiological Entomology
 </footer>
 
+<!-- MODAL -->
+<div id="modal" class="modal">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">✖</span>
+<div id="modal-text"></div>
+</div>
+</div>
+
 <script>
-/* DARK MODE + mémorisation */
 function toggleDark() {
     const body = document.body;
     const btn = document.getElementById("modeBtn");
@@ -225,7 +269,6 @@ function toggleDark() {
     }
 }
 
-/* Charger préférence utilisateur */
 window.onload = function() {
     const theme = localStorage.getItem("theme");
     const btn = document.getElementById("modeBtn");
@@ -236,7 +279,42 @@ window.onload = function() {
     }
 };
 
-/* FILTER */
+function openModal(lang) {
+    const modal = document.getElementById("modal");
+    const text = document.getElementById("modal-text");
+
+    if (lang === "fr") {
+        text.innerHTML = `
+        <b>Installation</b><br><br>
+        1. Télécharger le fichier APK<br>
+        2. Transférer sur un appareil Android<br>
+        3. Autoriser les sources inconnues<br>
+        4. Lancer l’application
+        `;
+    } else {
+        text.innerHTML = `
+        <b>Installation</b><br><br>
+        1. Download the APK file<br>
+        2. Transfer to an Android device<br>
+        3. Enable installation from unknown sources<br>
+        4. Launch the application
+        `;
+    }
+
+    modal.style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
+}
+
+window.onclick = function(event) {
+    let modal = document.getElementById("modal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
+
 document.getElementById("search").addEventListener("keyup", function() {
     let filter = this.value.toLowerCase();
     let tools = document.querySelectorAll(".tool");
