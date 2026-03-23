@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entomological Scientific Tools</title>
+
+<style>
+:root {
+    --bg: #f4f6f9;
+    --card: #ffffff;
+    --text: #333;
+    --accent: #2c7be5;
+    --badge: #e1ecff;
+}
+
+body.dark {
+    --bg: #1e1e1e;
+    --card: #2a2a2a;
+    --text: #f1f1f1;
+    --badge: #3a3a3a;
+}
+
+body {
+    font-family: Arial;
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.3s ease, color 0.3s ease;
+    padding-bottom: 70px;
+}
+
+/* HEADER */
+header {
+    background: linear-gradient(135deg, #2c3e50, #2c7be5);
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+.header-btn {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid rgba(0,0,0,0.2);
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    font-size: 0.9em;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.header-btn:hover {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+
+
+
+/* CARDS */
+.tool {
+    display: flex;
+    gap: 18px;
+    width: 100%;
+    max-width: 860px;
+    margin: 20px auto;
+    padding: 18px;
+    border-radius: 14px;
+    background: var(--card);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: default;
+}
+
+.tool:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.tool img {
+    width: 95px;
+    height: auto;
+    max-height: 95px;
+    object-fit: contain;
+}
+
+/* BADGES */
+.badge {
+    display: inline-block;
+    background: #d6ecff;
+    color: #004085;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75em;
+    margin: 4px 6px 0 0;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.badge:hover {
+    background: #2c7be5;
+    color: white;
+}
+
+/* BUTTONS */
+.download-btn {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+/* FILTER PANEL */
+.filter-panel {
+    position: fixed;
+    top: 0;
+    right: -340px;
+    width: 320px;
+    height: 100%;
+    background: var(--card);
+    box-shadow: -4px 0 25px rgba(0,0,0,0.25);
+    transition: 0.3s ease;
+    z-index: 2000;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.filter-panel.open {
+    right: 0;
+}
+
+.filter-panel h3 {
+    margin: 0;
+    font-size: 1.2em;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding-bottom: 10px;
+}
+
+/* selects propres */
+.filter-panel select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: white;
+}
+
+/* bouton */
+.filter-panel button {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: var(--accent);
+    color: white;
+    cursor: pointer;
+}
+
+
+.filter-panel label {
+    font-size: 0.8em;
+    opacity: 0.7;
+    margin-top: 5px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--text); /* clé importante */
+    opacity: 0.7;
+    transition: 0.2s;
+}
+
+.close-btn:hover {
+    opacity: 1;
+}
+
+
+
+
+
+
+/* INSTALL BUTTON */
+.install-btn {
+    background: #6c757d;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.2s;
+}
+
+.install-btn:hover {
+    background: #495057;
+}
+
+
+#modeBtn {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid rgba(0,0,0,0.2);
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+
+
+
+
+
+
+
+/* FOOTER */
+
+
+footer.footer {
+    background: linear-gradient(135deg, #2c3e50, #2c7be5); /* même que header */
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.footer-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: white;
+    text-decoration: none;
+}
+
+.footer-logo {
+    height: 28px;
+    width: auto;
+    object-fit: contain;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Entomological Scientific Tools</h1>
+
+
+<button onclick="toggleDark()" id="modeBtn" class="header-btn">🌙 Dark mode</button>
+<button onclick="openFilters()" class="header-btn">Filters</button>
+
+
+</header>
+
+<main id="toolsContainer"></main>
+
+<!-- FILTER -->
+<div id="filterPanel" class="filter-panel">
+
+<button onclick="closeFilters()" class="close-btn">✖</button>
+
+
+
+<h3>Filters</h3>
+
+<label>Language</label>
+<select id="filter-lang"></select>
+
+<label>Platform</label>
+<select id="filter-platform"></select>
+
+<label>Taxa</label>
+<select id="filter-taxa"></select>
+
+<label>Category</label>
+<select id="filter-category"></select>
+
+<button id="resetFilters">Reset filters</button>
+</div>
+
+<script>
+
+/* DARK MODE */
+function toggleDark(){
+
+document.body.classList.toggle("dark");
+
+const btn = document.getElementById("modeBtn");
+
+if(document.body.classList.contains("dark")){
+    btn.textContent = "☀ Light mode";
+} else {
+    btn.textContent = "🌙 Dark mode";
+}
+
+}
+
+/* FILTER PANEL */
+function openFilters(){
+    document.getElementById("filterPanel").classList.add("open");
+}
+function closeFilters(){
+    document.getElementById("filterPanel").classList.remove("open");
+}
+
+function buildFilters(data){
+
+const fields = ["lang", "platform", "taxa", "category"];
+
+fields.forEach(field => {
+
+    const select = document.getElementById("filter-" + field);
+
+    if(!select) return;
+
+    // reset
+    select.innerHTML = `<option value="">All</option>`;
+
+    // valeurs uniques
+    const values = [...new Set(data.map(t => t[field]))];
+
+    values.forEach(v => {
+        const opt = document.createElement("option");
+        opt.value = v;
+        opt.textContent = v;
+        select.appendChild(opt);
+    });
+
+});
+}
+
+
+
+
+
+
+
+/* LOAD JSON */
+let toolsData = [];
+
+fetch("data/tools.json")
+.then(res => res.json())
+.then(data => {
+    toolsData = data;
+    buildFilters(data);
+    renderTools(data);
+    document.getElementById("resetFilters").addEventListener("click", () => {
+
+    document.querySelectorAll("#filterPanel select").forEach(s => s.value = "");
+
+renderTools(toolsData);
+applyFilters();  
+});
+});
+
+
+
+
+
+/* RENDER */
+function renderTools(data){
+
+const container = document.getElementById("toolsContainer");
+container.innerHTML = "";
+
+data.forEach(t => {
+
+const div = document.createElement("div");
+div.className = "tool";
+div.dataset.lang = t.lang;
+div.dataset.platform = t.platform;
+
+div.innerHTML = `
+<img src="${t.image}">
+<div>
+<h2>${t.title}</h2>
+<span class="badge" onclick="filterBy('lang','${t.lang}')">${t.lang}</span>
+<span class="badge" onclick="filterBy('platform','${t.platform}')">${t.platform}</span>
+<span class="badge" onclick="filterBy('taxa','${t.taxa}')">${t.taxa}</span>
+<p>${t.description}</p>
+
+<a class="download-btn" href="${t.github}" target="_blank">
+<span>Download APK</span>
+<span>from GitHub</span>
+</a>
+
+<button class="install-btn" onclick="openModal('${t.tutorial}')">
+📲 Installation
+</button>
+
+</div>
+`;
+
+container.appendChild(div);
+
+});
+}
+
+/* FILTER */
+function applyFilters(){
+
+const lang = document.getElementById("filter-lang").value;
+const platform = document.getElementById("filter-platform").value;
+const taxa = document.getElementById("filter-taxa").value;
+const category = document.getElementById("filter-category").value;
+
+const filtered = toolsData.filter(t => {
+
+    return (!lang || t.lang === lang)
+        && (!platform || t.platform === platform)
+        && (!taxa || t.taxa === taxa)
+        && (!category || t.category === category);
+
+});
+
+renderTools(filtered);
+
+}
+
+/* MODAL */
+function openModal(file){
+
+fetch("tutoriels/" + file)
+.then(r => r.json())
+.then(data => {
+alert(data.steps.join("\n"));
+});
+}
+
+
+function filterBy(key, value){
+
+const filtered = toolsData.filter(t => t[key] === value);
+renderTools(filtered);
+
+}
+
+
+document.querySelectorAll("#filterPanel select").forEach(select => {
+    select.addEventListener("change", applyFilters);
+});
+applyFilters();
+
+
+
+
+
+</script>
+
+<footer class="footer">
+    
+    <a href="https://github.com/fredlardeux/entomo_tools/" target="_blank" class="footer-link">
+
+        <img src="images/Logo-github_entomotools.png" alt="GitHub EntomoTools logo" class="footer-logo">
+
+        <span>© 2026 - FLX - Epidemiological entomology</span>
+
+    </a>
+
+</footer>
+
+</body>
+</html>
