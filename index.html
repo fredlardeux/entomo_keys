@@ -465,7 +465,17 @@ document.querySelectorAll("#filterPanel select").forEach(select => {
 applyFilters();
 
 
+async function loadData(){
+    const [tools, stats] = await Promise.all([
+        fetch("data/tools.json").then(r => r.json()),
+        fetch("data/stats.json").then(r => r.json())
+    ]);
 
+    render(tools, stats);
+}
+
+
+    
 
 
 </script>
