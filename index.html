@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Entomological Scientific Tools</title>
+<title>Entomology Tools</title>
 
 <style>
 :root {
@@ -11,224 +11,207 @@
     --card: #ffffff;
     --text: #333;
     --accent: #2c7be5;
-    --badge: #e1ecff;
 }
 
 body.dark {
     --bg: #1e1e1e;
     --card: #2a2a2a;
     --text: #f1f1f1;
-    --badge: #3a3a3a;
+}
+
+/* correction lisibilité des pastilles en dark mode */
+body.dark .badge,
+body.dark .tag,
+body.dark .pill,
+body.dark .lang-badge{
+    color: #000;
 }
 
 body {
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     margin: 0;
     background: var(--bg);
     color: var(--text);
-    transition: background 0.3s ease, color 0.3s ease;
     padding-bottom: 70px;
 }
 
 /* HEADER */
 header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
     background: linear-gradient(135deg, #2c3e50, #2c7be5);
     color: white;
-    padding: 25px;
-    text-align: center;
 }
-.header-btn {
-    background: var(--card);
-    color: var(--text);
-    border: 1px solid rgba(0,0,0,0.2);
-    padding: 8px 12px;
-    border-radius: 8px;
+
+header button{
+    padding: 7px 10px;
+    border-radius: 6px;
+    border: none;
     cursor: pointer;
+    font-size: 0.85em;
+    background: rgba(255,255,255,0.15);
+    color: white;
     transition: 0.2s ease;
-    font-size: 0.9em;
-    display: inline-flex;
+}
+
+header button:hover{
+    background: rgba(255,255,255,0.25);
+}
+
+.badge{
+    color: #111;
+}
+
+
+.logo {
+    font-weight: bold;
+}
+
+.search-wrapper {
+    display: flex;
     align-items: center;
     gap: 6px;
+    flex: 1;
+    max-width: 500px;
+    margin: 0 10px;
 }
 
-.header-btn:hover {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
+.search-wrapper input {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px 0 0 6px;
+    border: none;
 }
 
-/* CARDS */
+.search-wrapper button {
+    padding: 7px 10px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.85em;
+}
+
+.header-actions button {
+    margin-left: 6px;
+}
+
+/* TOOL CARD */
 .tool {
     display: flex;
-    gap: 18px;
-    width: 100%;
-    max-width: 860px;
-    margin: 20px auto;
-    padding: 18px;
-    border-radius: 14px;
+    gap: 16px;
     background: var(--card);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin: 16px auto;
+    padding: 16px;
+    max-width: 900px;
+    border-radius: 12px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    cursor: default;
 }
 
+/* effet au survol */
 .tool:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
 }
 
-.tool img {
-    width: 95px;
-    height: auto;
-    max-height: 95px;
-    object-fit: contain;
-}
 
 /* BADGES */
 .badge {
     display: inline-block;
-    background: #d6ecff;
-    color: #004085;
     padding: 4px 10px;
     border-radius: 20px;
-    font-size: 0.75em;
-    margin: 4px 6px 0 0;
+    background: #d6ecff;
+    margin-right: 6px;
     cursor: pointer;
-    transition: 0.2s;
-}
-
-.badge:hover {
-    background: #2c7be5;
-    color: white;
-}
-
-/* BUTTONS */
-.download-btn {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: var(--accent);
-    color: white;
-    padding: 10px;
-    border-radius: 10px;
-    text-decoration: none;
-    margin-top: 10px;
 }
 
 /* FILTER PANEL */
-.filter-panel {
+.filter-panel{
     position: fixed;
     top: 0;
-    right: -340px;
-    width: 320px;
+    right: -380px;
+    width: 360px;
     height: 100%;
     background: var(--card);
-    box-shadow: -4px 0 25px rgba(0,0,0,0.25);
-    transition: 0.3s ease;
-    z-index: 2000;
-    padding: 25px 20px;
+    transition: 0.35s ease;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    box-shadow: -8px 0 25px rgba(0,0,0,0.15);
+    z-index: 999;
 }
 
-.filter-panel.open {
+.filter-panel.open{
     right: 0;
 }
 
-.filter-panel h3 {
-    margin: 0;
-    font-size: 1.2em;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-    padding-bottom: 10px;
+/* FILTER HEADER */
+.filter-header{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    background: linear-gradient(135deg, #2c3e50, #2c7be5);
+    color: white;
+    font-weight: bold;
 }
 
-.filter-panel select {
+/* FILTER CONTENT */
+.filter-content{
+    flex: 1;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    overflow-y: auto;
+}
+
+.filter-group label{
+    font-size: 0.8em;
+    opacity: 0.7;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.filter-panel select{
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.2);
+}
+
+/* FILTER FOOTER */
+.filter-footer{
+    padding: 14px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.filter-footer button{
     width: 100%;
     padding: 8px;
     border-radius: 6px;
-    border: 1px solid #ccc;
-    background: white;
-}
-
-.filter-panel button {
-    padding: 10px;
-    border-radius: 8px;
     border: none;
-    background: var(--accent);
+    background: #e74c3c;
     color: white;
     cursor: pointer;
+    font-size: 0.9em;
 }
 
-.filter-panel label {
-    font-size: 0.8em;
-    opacity: 0.7;
-    margin-top: 5px;
-}
-
-.close-btn {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: none;
-    border: none;
-    font-size: 20px;
+/* CLOSE */
+.close-btn{
     cursor: pointer;
-    color: var(--text);
-    opacity: 0.7;
-}
-
-.close-btn:hover {
-    opacity: 1;
-}
-
-/* INSTALL BUTTON */
-.install-btn {
-    background: #6c757d;
-    color: white;
-    padding: 10px 14px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.install-btn:hover {
-    background: #495057;
-}
-
-#modeBtn {
-    background: var(--card);
-    color: var(--text);
-    border: 1px solid rgba(0,0,0,0.2);
-    padding: 8px 12px;
-    border-radius: 8px;
-    cursor: pointer;
+    font-size: 18px;
 }
 
 /* FOOTER */
-footer.footer {
-    background: linear-gradient(135deg, #2c3e50, #2c7be5);
-    color: white;
-    padding: 15px 20px;
-    text-align: center;
+footer{
     position: fixed;
     bottom: 0;
-    left: 0;
     width: 100%;
-}
-
-.footer-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
+    text-align: center;
+    padding: 10px;
+    background: linear-gradient(135deg, #2c3e50, #2c7be5);
     color: white;
-    text-decoration: none;
-}
-
-.footer-logo {
-    height: 28px;
 }
 </style>
 </head>
@@ -236,171 +219,266 @@ footer.footer {
 <body>
 
 <header>
-<h1>Entomological Scientific Tools</h1>
-<button onclick="toggleDark()" id="modeBtn" class="header-btn">🌙 Dark mode</button>
-<button onclick="openFilters()" class="header-btn">Filters</button>
+    <div class="logo">🧬 Entomology Tools</div>
+
+    <div class="search-wrapper">
+        <input id="searchInput" oninput="applyFilters()" placeholder="Search tools...">
+        <button onclick="applyFilters()">Search</button>
+        <button onclick="resetAll()">Reset List ✖</button>
+    </div>
+
+    <div class="header-actions">
+        <button onclick="openFilters()">Filters</button>
+        <button onclick="toggleDark()" id="themeBtn">🌙</button>
+    </div>
 </header>
 
 <main id="toolsContainer"></main>
 
+<!-- FILTER PANEL -->
 <div id="filterPanel" class="filter-panel">
-<button onclick="closeFilters()" class="close-btn">✖</button>
 
-<h3>Filters</h3>
+    <div class="filter-header">
+        <h3>Filters</h3>
+        <span class="close-btn" onclick="closeFilters()">✖</span>
+    </div>
 
-<label>Language</label>
-<select id="filter-lang"></select>
+    <div class="filter-content">
 
-<label>Platform</label>
-<select id="filter-platform"></select>
+        <div class="filter-group">
+            <label>Language</label>
+            <select id="filter-lang" onchange="applyFilters()"></select>
+        </div>
 
-<label>Taxa</label>
-<select id="filter-taxa"></select>
+        <div class="filter-group">
+            <label>Platform</label>
+            <select id="filter-platform" onchange="applyFilters()"></select>
+        </div>
 
-<label>Category</label>
-<select id="filter-category"></select>
+        <div class="filter-group">
+            <label>Taxa</label>
+            <select id="filter-taxa" onchange="applyFilters()"></select>
+        </div>
 
-<button id="resetFilters">Reset filters</button>
+        <div class="filter-group">
+            <label>Category</label>
+            <select id="filter-category" onchange="applyFilters()"></select>
+        </div>
+
+    </div>
+
+    <div class="filter-footer">
+        <button onclick="resetAll()">Reset filters</button>
+    </div>
+
 </div>
+
+<footer>
+© 2026 - FLX Entomology tools
+</footer>
 
 <script>
 
 let toolsData = [];
-let currentStats = {};
 
 async function loadData(){
-    try {
-        const [tools, stats] = await Promise.all([
-            fetch("data/tools.json").then(r => r.json()),
-            fetch("data/stats.json").then(r => r.json())
-        ]);
+    const res = await fetch("data/tools.json");
+    toolsData = await res.json();
+    buildFilters(toolsData);
+    applyFilters();
+}
 
-        toolsData = tools;
-        currentStats = stats;
+function openFilters(){
+    document.getElementById("filterPanel").classList.add("open");
+}
 
-        buildFilters(tools);
-        renderTools(tools, stats);
+function closeFilters(){
+    document.getElementById("filterPanel").classList.remove("open");
+}
 
-    } catch (err) {
-        console.error("Erreur chargement JSON:", err);
+function toggleDark(){
+    document.body.classList.toggle("dark");
+
+    const btn = document.getElementById("themeBtn");
+
+    if(document.body.classList.contains("dark")){
+        btn.textContent = "☀️";
+    } else {
+        btn.textContent = "🌙";
     }
 }
 
-/* DARK MODE */
-function toggleDark(){
-document.body.classList.toggle("dark");
-const btn = document.getElementById("modeBtn");
-btn.textContent = document.body.classList.contains("dark")
-? "☀ Light mode"
-: "🌙 Dark mode";
-}
-
-/* FILTER PANEL */
-function openFilters(){ document.getElementById("filterPanel").classList.add("open"); }
-function closeFilters(){ document.getElementById("filterPanel").classList.remove("open"); }
-
+/* FILTER BUILDER */
 function buildFilters(data){
-const fields = ["lang","platform","taxa","category"];
-fields.forEach(field=>{
-const select=document.getElementById("filter-"+field);
-select.innerHTML=`<option value="">All</option>`;
-[...new Set(data.map(t=>t[field]))].forEach(v=>{
-let opt=document.createElement("option");
-opt.value=v; opt.textContent=v;
-select.appendChild(opt);
-});
-});
+    ["lang","platform","taxa","category"].forEach(field=>{
+        const select = document.getElementById("filter-"+field);
+        if (!select) return;
+
+        select.innerHTML = `<option value="">All</option>`;
+
+        const values = new Set();
+
+        data.forEach(t => {
+            const v = t[field];
+
+            if (Array.isArray(v)) {
+                v.forEach(x => values.add(x));
+            } else if (v !== undefined && v !== null) {
+                values.add(v);
+            }
+        });
+
+        [...values].sort().forEach(v=>{
+            let opt = document.createElement("option");
+            opt.value = v;
+            opt.textContent = v;
+            select.appendChild(opt);
+        });
+    });
 }
 
 /* RENDER */
-function renderTools(data, stats = {}){
-const container = document.getElementById("toolsContainer");
-container.innerHTML = "";
 
-data.forEach(t => {
+function renderTools(data){
+    const container = document.getElementById("toolsContainer");
+    container.innerHTML = "";
 
-const st = stats[t.id] || {};
+    data.forEach(t=>{
+        const div = document.createElement("div");
+        div.className = "tool";
 
-const div = document.createElement("div");
-div.className = "tool";
+        div.innerHTML = `
+        
+        <img src="${t.image || ''}" alt="${t.title}"
+             style="width:120px;max-width:120px;height:auto;object-fit:contain;flex-shrink:0;">
 
-div.innerHTML = `
-<img src="${t.image}">
-<div>
-<h2>${t.title}</h2>
+        <div style="flex:1;">
+            <h1 style="margin:0 0 6px 0;">${t.title}</h1>
 
-<span class="badge" onclick="filterBy('lang','${t.lang}')">${t.lang}</span>
-<span class="badge" onclick="filterBy('platform','${t.platform}')">${t.platform}</span>
-<span class="badge" onclick="filterBy('taxa','${t.taxa}')">${t.taxa}</span>
+            ${(Array.isArray(t.lang) ? t.lang : [t.lang]).map(l =>
+                `<span class="badge" onclick="filterBy('lang','${l}')">${l}</span>`
+            ).join("")}
 
-<p>${t.description}</p>
+            <span class="badge" onclick="filterBy('platform','${t.platform}')">${t.platform}</span>
+            <span class="badge" onclick="filterBy('taxa','${t.taxa}')">${t.taxa}</span>
+            <span class="badge" onclick="filterBy('category','${t.category}')">${t.category}</span>
 
-<a class="download-btn" href="${t.github_download_url}" target="_blank">
-<span>Download GitHub</span>
-</a>
+            <p>${t.description}</p>
 
-<button class="install-btn" onclick="openModal('${t.tutorial}')">
-📲 Installation
-</button>
+            <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
 
-<div style="margin-top:8px; font-size:0.8em; opacity:0.8;">
-${st.github_version ? "Version: " + st.github_version : ""}
-${st.github_downloads ? "<br>Downloads: " + st.github_downloads : ""}
-${st.zenodo_doi ? `<br><a href="https://doi.org/${st.zenodo_doi}" target="_blank">DOI</a>` : ""}
-</div>
+                ${t.url ? `
+                <a href="${t.url}" target="_blank"
+                   style="display:inline-block;padding:7px 12px;border-radius:8px;background:#2c7be5;color:white;text-decoration:none;font-size:0.9em;">
+                    Download page
+                </a>` : ""}
 
-</div>
-`;
+                ${t.github_repo ? `
+                <a href="${t.github_repo}" target="_blank"
+                   style="display:inline-block;padding:7px 12px;border-radius:8px;background:#6c757d;color:white;text-decoration:none;font-size:0.9em;">
+                    GitHub repository
+                </a>` : ""}
 
-container.appendChild(div);
-});
+            </div>
+        </div>
+
+        `;
+
+        container.appendChild(div);
+    });
 }
 
-/* FILTER */
+function resetAll(){
+    document.querySelectorAll("select").forEach(s=>s.value="");
+    document.getElementById("searchInput").value="";
+    applyFilters();
+}
+
 function applyFilters(){
-const lang=document.getElementById("filter-lang").value;
-const platform=document.getElementById("filter-platform").value;
-const taxa=document.getElementById("filter-taxa").value;
-const category=document.getElementById("filter-category").value;
 
-const filtered=toolsData.filter(t=>
-(!lang||t.lang===lang)
-&&(!platform||t.platform===platform)
-&&(!taxa||t.taxa===taxa)
-&&(!category||t.category===category)
-);
+    const lang = document.getElementById("filter-lang").value;
+    const platform = document.getElementById("filter-platform").value;
+    const taxa = document.getElementById("filter-taxa").value;
+    const category = document.getElementById("filter-category").value;
+    const search = (document.getElementById("searchInput").value || "").toLowerCase();
 
-renderTools(filtered,currentStats);
+    const filtered = toolsData.filter(t => {
+
+        const langValues = Array.isArray(t.lang) ? t.lang : [t.lang];
+
+        const okLang = !lang || langValues.includes(lang);
+        const okPlatform = !platform || t.platform === platform;
+        const okTaxa = !taxa || t.taxa === taxa;
+        const okCategory = !category || t.category === category;
+
+        const okSearch =
+            !search ||
+            (t.title || "").toLowerCase().includes(search) ||
+            (t.description || "").toLowerCase().includes(search);
+
+        return okLang && okPlatform && okTaxa && okCategory && okSearch;
+    });
+
+    renderTools(filtered);
 }
 
-/* EVENTS */
-document.querySelectorAll("#filterPanel select")
-.forEach(s=>s.addEventListener("change",applyFilters));
 
-/* BADGE FILTER */
-function filterBy(key,value){
-const filtered=toolsData.filter(t=>t[key]===value);
-renderTools(filtered,currentStats);
+function filterBy(key, value){
+
+    document.getElementById("filter-" + key).value = value;
+
+    const lang = document.getElementById("filter-lang").value;
+    const platform = document.getElementById("filter-platform").value;
+    const taxa = document.getElementById("filter-taxa").value;
+    const category = document.getElementById("filter-category").value;
+    const search = (document.getElementById("searchInput").value || "").toLowerCase();
+
+    const filtered = toolsData.filter(t => {
+
+        const langValues = Array.isArray(t.lang) ? t.lang : [t.lang];
+
+        const okLang = !lang || langValues.includes(lang);
+        const okPlatform = !platform || t.platform === platform;
+        const okTaxa = !taxa || t.taxa === taxa;
+        const okCategory = !category || t.category === category;
+
+        const okSearch =
+            !search ||
+            (t.title || "").toLowerCase().includes(search) ||
+            (t.description || "").toLowerCase().includes(search);
+
+        return okLang && okPlatform && okTaxa && okCategory && okSearch;
+    });
+
+    renderTools(toolsData.filter(t => {
+
+    const langValues = Array.isArray(t.lang) ? t.lang : [t.lang];
+
+    const okLang = !document.getElementById("filter-lang").value || langValues.includes(document.getElementById("filter-lang").value);
+    const okPlatform = !document.getElementById("filter-platform").value || t.platform === document.getElementById("filter-platform").value;
+    const okTaxa = !document.getElementById("filter-taxa").value || t.taxa === document.getElementById("filter-taxa").value;
+    const okCategory = !document.getElementById("filter-category").value || t.category === document.getElementById("filter-category").value;
+
+    const search = (document.getElementById("searchInput").value || "").toLowerCase();
+
+    const okSearch =
+        !search ||
+        (t.title || "").toLowerCase().includes(search) ||
+        (t.description || "").toLowerCase().includes(search);
+
+    return okLang && okPlatform && okTaxa && okCategory && okSearch;
+}));
 }
 
-/* MODAL */
-function openModal(file){
-fetch("tutoriels/"+file)
-.then(r=>r.json())
-.then(d=>alert(d.steps.join("\n")));
-}
 
-/* INIT */
+
+
+
+
+
 loadData();
 
 </script>
-
-<footer class="footer">
-<a href="https://github.com/fredlardeux/entomo_tools/" target="_blank" class="footer-link">
-<img src="images/Logo-github_entomotools.png" class="footer-logo">
-<span>© 2026 - FLX - Epidemiological entomology</span>
-</a>
-</footer>
 
 </body>
 </html>
