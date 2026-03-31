@@ -1,8 +1,9 @@
 # entomo_tools
 Applications and scripts for vectorial entomology
 
-Les applications et scripts disponibles sont les suivants (ordre alphabetique):
 Le site dispose d'un filtre pour pouvoir selectionner les applications ne fonction de la langue de l'appli, du type de contenu (clé identification, calcul statistique ...), du taxa concerné (moustiques, triatomes ...), de sa plateforme (Android, R-shiny ...)
+
+Les applications et scripts disponibles sont les suivants (ordre alphabetique):
 
 ## Moustic Reunion
 Application Android. <b>Clé dichotomique d'identification morphologique des moustiques de l'île de LA REUNION.</b>
