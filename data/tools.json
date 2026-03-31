@@ -2,69 +2,26 @@
   {
     "id": "moustic_reunion",
     "title": "Moustic Réunion",
-    "description": "Application d'identification des moustiques de La Réunion.",
-    
     "image": "images/logo_moustic_reunion.png",
-    
-    "lang": "fr",
-    "platform": "android",
-    "taxa": "moustiques",
-    "category": "identification",
-
-    "github_repo": "fredlardeux/entomo_tools",
-    "github_asset_name": "2025-05-16_moustic_Reunion.apk",
-
-    "github_download_url": "https://github.com/fredlardeux/entomo_tools/releases/download/v1.0/2025-05-16_moustic_Reunion.apk",
-
-    "zenodo_id": "https://zenodo.org/records/19097950",
-    "zenodo_doi": "10.5281/zenodo.19097950",
-
-    "tutorial": "moustic_reunion_fr.json"
+    "description": "Application Android: Clé dichotomique illustrée pour l'identification morphologique des moustiques de l'île de La Réunion",
+    "lang": ["FR"],
+    "platform": "Android",
+    "taxa": "Culicidae",
+    "category": "Identification key",
+    "url": "https://fredlardeux.github.io/moustic_reunion/",
+    "github_repo": "https://github.com/fredlardeux/moustic_reunion"
   },
 
   {
-    "id": "moustic_tahiti_fr",
-    "title": "Moustic Tahiti (FR)",
-    "description": "Application d'identification des moustiques de Polynésie française (version française).",
-    
+    "id": "moustic_tahiti",
+    "title": "Moustic Tahiti",
     "image": "images/logo_moustic_tahiti.png",
-    
-    "lang": "fr",
-    "platform": "android",
-    "taxa": "moustiques",
-    "category": "identification",
-
-    "github_repo": "fredlardeux/entomo_tools",
-    "github_asset_name": "moustic_Tahiti.apk",
-
-    "github_download_url": "#",
-
-    "zenodo_id": "XXXXX",
-    "zenodo_doi": "",
-
-    "tutorial": "moustic_tahiti_fr.json"
-  },
-
-  {
-    "id": "moustic_tahiti_en",
-    "title": "Moustic Tahiti (EN)",
-    "description": "Mosquito identification app for French Polynesia (English version).",
-    
-    "image": "images/logo_moustic_tahiti.png",
-    
-    "lang": "en",
-    "platform": "android",
-    "taxa": "moustiques",
-    "category": "identification",
-
-    "github_repo": "fredlardeux/entomo_tools",
-    "github_asset_name": "moustic_Tahiti.apk",
-
-    "github_download_url": "#",
-
-    "zenodo_id": "XXXXX",
-    "zenodo_doi": "",
-
-    "tutorial": "moustic_tahiti_en.json"
+    "description": "Application Android: Clé dichotomique illustrée pour l'identification morphologique des moustiques de l'île de Tahiti",
+    "lang": ["FR", "EN"],
+    "platform": "Android",
+    "taxa": "Culicidae",
+    "category": "Identification key",
+    "url": "https://fredlardeux.github.io/moustic_tahiti/",
+    "github_repo": "https://github.com/fredlardeux/moustic_tahiti"
   }
 ]
